@@ -1,0 +1,255 @@
+\hypertarget{class_main_window}{}\doxysection{Main\+Window Class Reference}
+\label{class_main_window}\index{MainWindow@{MainWindow}}
+
+
+{\ttfamily \#include $<$mainwindow.\+h$>$}
+
+Inheritance diagram for Main\+Window\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_main_window}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_main_window_acee1c550bcdd31ca0e37b10f6eefe09d}{krok}} (int $\ast$$\ast$tab, int N)
+\item 
+void \mbox{\hyperlink{class_main_window_a7e598bc26d7fe23f2c8c134d730a5c6a}{krok2}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a56e0f9bcf0ac0d654388bb94e52615cf}{toggle\+Start}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a90f61858872c3b0f8c766e38456d2b23}{czyszczenie\+Tablicy}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a74de06e640708cded411d79294509b07}{randomowanie\+Tablicy}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_main_window_a996c5a2b6f77944776856f08ec30858d}{Main\+Window}} (QWidget $\ast$parent=nullptr)
+\item 
+\mbox{\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{$\sim$\+Main\+Window}} ()
+\item 
+int $\ast$$\ast$ \mbox{\hyperlink{class_main_window_aa006c9517f15c8266f3986bfc05cdbc0}{get2d}} (int N)
+\item 
+void \mbox{\hyperlink{class_main_window_ad47efc353f0fc3ceba289c98ff20000f}{wypelnij}} (int $\ast$$\ast$tab, int N)
+\item 
+void \mbox{\hyperlink{class_main_window_a23c659005620417402744d731bcfce25}{wypelnij\+Zerami}} (int $\ast$$\ast$tab, int N)
+\item 
+int $\ast$$\ast$ \mbox{\hyperlink{class_main_window_a838a927eb3dfd7ea6ef9e4f17ade5f66}{umiesc\+WRamce}} (int $\ast$$\ast$tab, int N)
+\item 
+int \mbox{\hyperlink{class_main_window_a5fb7e7e2726a981665815163baef8fff}{licznik\+Sasiadow\+Neumann}} (int $\ast$$\ast$tab, int i, int j)
+\item 
+int \mbox{\hyperlink{class_main_window_a0d08f5d6a9da49dbefe8d94ed9b82c71}{licznik\+Sasiadow\+Moore}} (int $\ast$$\ast$tab, int i, int j)
+\item 
+int \mbox{\hyperlink{class_main_window_a2dccb1122b6a8aeb221da095adcb4af3}{licznik\+Sasiadow}} (int $\ast$$\ast$tab, int i, int j)
+\item 
+int $\ast$$\ast$ \mbox{\hyperlink{class_main_window_a778ec5727202028458bf703cb224281c}{tablica\+Wszystkich\+Sasiadow}} (int $\ast$$\ast$tab, int N)
+\item 
+void \mbox{\hyperlink{class_main_window_aec28e4805f28754151bd64410665ea6d}{run}} (int $\ast$$\ast$tab, int N)
+\item 
+void \mbox{\hyperlink{class_main_window_aecca00b26fe02171f49b02adf0b7b837}{kasuj}} (int $\ast$$\ast$\&tab, int N)
+\item 
+void \mbox{\hyperlink{class_main_window_a5c9284657748a3f5fd2cf2aeee042aff}{kasuj1d}} (int $\ast$\&tab)
+\item 
+void \mbox{\hyperlink{class_main_window_a76eaa737c7d042d2d14ad788f765e2c6}{testuj\+Get2d}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a5e6f29d3c7e0b3589d84cb6bb91ece4e}{testuj\+Umiesc\+WRamce}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a87a2cdbf55a0f233a08a83ae55368851}{testuj\+Licznik\+Sasiadow\+Neumann}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_afc843f200efa72fd4f63138ec194f21b}{testuj\+Licznik\+Sasiadow\+Moore}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_aff1cbc50a63e1fab330cc96e42d29b56}{testuj\+Tablica\+Wszystkich\+Sasiadow}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_afa255473cbf14b082f216d4c5109b214}{testuj\+Krok}} ()
+\item 
+void \mbox{\hyperlink{class_main_window_a422f5ee6beeb3f13d6babc340ca16dad}{testuj\+Wszystko}} ()
+\item 
+virtual void \mbox{\hyperlink{class_main_window_abf05d580e91f725777cdb6a5eb0bf08c}{paint\+Event}} (QPaint\+Event $\ast$event)
+\item 
+void \mbox{\hyperlink{class_main_window_a2b5463ae209a03d1680b39c950dac8be}{mouse\+Press\+Event}} (QMouse\+Event $\ast$event)
+\item 
+void \mbox{\hyperlink{class_main_window_aec99f350489deca7d8aea9a46a4af9c7}{toggle\+Cell}} (int ktory\+\_\+kwadracik\+\_\+x, int ktory\+\_\+kwadracik\+\_\+y)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_main_window_a996c5a2b6f77944776856f08ec30858d}\label{class_main_window_a996c5a2b6f77944776856f08ec30858d}} 
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{MainWindow()}{MainWindow()}}
+{\footnotesize\ttfamily Main\+Window\+::\+Main\+Window (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}\label{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}} 
+\index{MainWindow@{MainWindow}!````~MainWindow@{$\sim$MainWindow}}
+\index{````~MainWindow@{$\sim$MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{$\sim$MainWindow()}{~MainWindow()}}
+{\footnotesize\ttfamily Main\+Window\+::$\sim$\+Main\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_main_window_a90f61858872c3b0f8c766e38456d2b23}\label{class_main_window_a90f61858872c3b0f8c766e38456d2b23}} 
+\index{MainWindow@{MainWindow}!czyszczenieTablicy@{czyszczenieTablicy}}
+\index{czyszczenieTablicy@{czyszczenieTablicy}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{czyszczenieTablicy}{czyszczenieTablicy}}
+{\footnotesize\ttfamily void Main\+Window\+::czyszczenie\+Tablicy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+funkcja czyszcząca tablicę, żeby działał guzik \char`\"{}clear\char`\"{} \mbox{\Hypertarget{class_main_window_aa006c9517f15c8266f3986bfc05cdbc0}\label{class_main_window_aa006c9517f15c8266f3986bfc05cdbc0}} 
+\index{MainWindow@{MainWindow}!get2d@{get2d}}
+\index{get2d@{get2d}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{get2d()}{get2d()}}
+{\footnotesize\ttfamily int $\ast$$\ast$ Main\+Window\+::get2d (\begin{DoxyParamCaption}\item[{int}]{N }\end{DoxyParamCaption})}
+
+funkcja tworzy dwuwymiarową dynamiczną tablicę \mbox{\Hypertarget{class_main_window_aecca00b26fe02171f49b02adf0b7b837}\label{class_main_window_aecca00b26fe02171f49b02adf0b7b837}} 
+\index{MainWindow@{MainWindow}!kasuj@{kasuj}}
+\index{kasuj@{kasuj}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{kasuj()}{kasuj()}}
+{\footnotesize\ttfamily void Main\+Window\+::kasuj (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$\&}]{tab,  }\item[{int}]{N }\end{DoxyParamCaption})}
+
+funkcja, która kasuje dwuwymiarową tablicę dynamiczną \mbox{\Hypertarget{class_main_window_a5c9284657748a3f5fd2cf2aeee042aff}\label{class_main_window_a5c9284657748a3f5fd2cf2aeee042aff}} 
+\index{MainWindow@{MainWindow}!kasuj1d@{kasuj1d}}
+\index{kasuj1d@{kasuj1d}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{kasuj1d()}{kasuj1d()}}
+{\footnotesize\ttfamily void Main\+Window\+::kasuj1d (\begin{DoxyParamCaption}\item[{int $\ast$\&}]{tab }\end{DoxyParamCaption})}
+
+funkcja, która kasuje jednowymiarową tablicę dynamiczną \mbox{\Hypertarget{class_main_window_acee1c550bcdd31ca0e37b10f6eefe09d}\label{class_main_window_acee1c550bcdd31ca0e37b10f6eefe09d}} 
+\index{MainWindow@{MainWindow}!krok@{krok}}
+\index{krok@{krok}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{krok}{krok}}
+{\footnotesize\ttfamily void Main\+Window\+::krok (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{tab,  }\item[{int}]{N }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+funkcja jako parametr bierze tablicę z zerami i jedynkami wkłada ją w ramkę z zerami potem w podwójnej pętli sprawdza liczbę sąsiadów danej komórki i na tej podstawie zamienia ją na zero albo jedynkę \mbox{\Hypertarget{class_main_window_a7e598bc26d7fe23f2c8c134d730a5c6a}\label{class_main_window_a7e598bc26d7fe23f2c8c134d730a5c6a}} 
+\index{MainWindow@{MainWindow}!krok2@{krok2}}
+\index{krok2@{krok2}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{krok2}{krok2}}
+{\footnotesize\ttfamily void Main\+Window\+::krok2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+funkcja bardzo podobna do funkcji krok pozbawiona parametrów, żeby lepiej działały connecty state to tablica dwuwymiarowa zadeklarowana w zmiennych globalnych zapełniona losowo zerami i jedynkami za pomocą funkcji wypełnij \mbox{\Hypertarget{class_main_window_a2dccb1122b6a8aeb221da095adcb4af3}\label{class_main_window_a2dccb1122b6a8aeb221da095adcb4af3}} 
+\index{MainWindow@{MainWindow}!licznikSasiadow@{licznikSasiadow}}
+\index{licznikSasiadow@{licznikSasiadow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{licznikSasiadow()}{licznikSasiadow()}}
+{\footnotesize\ttfamily int Main\+Window\+::licznik\+Sasiadow (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{tab,  }\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+funkcja dodaje tylko wartości obliczone w dwóch poprzednich funkcjach \mbox{\Hypertarget{class_main_window_a0d08f5d6a9da49dbefe8d94ed9b82c71}\label{class_main_window_a0d08f5d6a9da49dbefe8d94ed9b82c71}} 
+\index{MainWindow@{MainWindow}!licznikSasiadowMoore@{licznikSasiadowMoore}}
+\index{licznikSasiadowMoore@{licznikSasiadowMoore}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{licznikSasiadowMoore()}{licznikSasiadowMoore()}}
+{\footnotesize\ttfamily int Main\+Window\+::licznik\+Sasiadow\+Moore (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{tab,  }\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+funkcja oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Moore\textquotesingle{}a sąsiedztwo Moore\textquotesingle{}a to osiem komórek, które graniczą z centralną komórką krawędziami i wierzchołkami rozpatruję tylko te, które graniczą wierzchołkami, żeby potem dodać to do funkcji licznik\+Sasiadow\+Neumann \mbox{\Hypertarget{class_main_window_a5fb7e7e2726a981665815163baef8fff}\label{class_main_window_a5fb7e7e2726a981665815163baef8fff}} 
+\index{MainWindow@{MainWindow}!licznikSasiadowNeumann@{licznikSasiadowNeumann}}
+\index{licznikSasiadowNeumann@{licznikSasiadowNeumann}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{licznikSasiadowNeumann()}{licznikSasiadowNeumann()}}
+{\footnotesize\ttfamily int Main\+Window\+::licznik\+Sasiadow\+Neumann (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{tab,  }\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})}
+
+funkcja oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Neumanna sąsiedztwo Neumanna to cztery komórki, które graniczą z centralną komórką krawędziami \mbox{\Hypertarget{class_main_window_a2b5463ae209a03d1680b39c950dac8be}\label{class_main_window_a2b5463ae209a03d1680b39c950dac8be}} 
+\index{MainWindow@{MainWindow}!mousePressEvent@{mousePressEvent}}
+\index{mousePressEvent@{mousePressEvent}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{mousePressEvent()}{mousePressEvent()}}
+{\footnotesize\ttfamily void Main\+Window\+::mouse\+Press\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event $\ast$}]{event }\end{DoxyParamCaption})}
+
+nadpisana funkcja z QWidget w zmiennych x i y przechowuje współrzędne kliknięcia potem współrzędne kliknięcia przetłumacza na indeks komórki za pomocą funkcji toggle\+Cell zmienia kolor komórki \mbox{\Hypertarget{class_main_window_abf05d580e91f725777cdb6a5eb0bf08c}\label{class_main_window_abf05d580e91f725777cdb6a5eb0bf08c}} 
+\index{MainWindow@{MainWindow}!paintEvent@{paintEvent}}
+\index{paintEvent@{paintEvent}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{paintEvent()}{paintEvent()}}
+{\footnotesize\ttfamily void Main\+Window\+::paint\+Event (\begin{DoxyParamCaption}\item[{QPaint\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+nadpisana funkcja z QWidget jeśli komórka jest 1, rysuje czarny kwadracik jeśli komórka jest 0, rysuje biały kwadracik \mbox{\Hypertarget{class_main_window_a74de06e640708cded411d79294509b07}\label{class_main_window_a74de06e640708cded411d79294509b07}} 
+\index{MainWindow@{MainWindow}!randomowanieTablicy@{randomowanieTablicy}}
+\index{randomowanieTablicy@{randomowanieTablicy}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{randomowanieTablicy}{randomowanieTablicy}}
+{\footnotesize\ttfamily void Main\+Window\+::randomowanie\+Tablicy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+funkcja zapełniająca tablicę losowo zerami i jedynkami, żeby działał guzik \char`\"{}random\char`\"{} \mbox{\Hypertarget{class_main_window_aec28e4805f28754151bd64410665ea6d}\label{class_main_window_aec28e4805f28754151bd64410665ea6d}} 
+\index{MainWindow@{MainWindow}!run@{run}}
+\index{run@{run}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void Main\+Window\+::run (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{tab,  }\item[{int}]{N }\end{DoxyParamCaption})}
+
+funkcja, która służyła do tego, żeby nowy stan tablicy obliczał się ograniczoną liczbę razy \mbox{\Hypertarget{class_main_window_a778ec5727202028458bf703cb224281c}\label{class_main_window_a778ec5727202028458bf703cb224281c}} 
+\index{MainWindow@{MainWindow}!tablicaWszystkichSasiadow@{tablicaWszystkichSasiadow}}
+\index{tablicaWszystkichSasiadow@{tablicaWszystkichSasiadow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{tablicaWszystkichSasiadow()}{tablicaWszystkichSasiadow()}}
+{\footnotesize\ttfamily int $\ast$$\ast$ Main\+Window\+::tablica\+Wszystkich\+Sasiadow (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{tab,  }\item[{int}]{N }\end{DoxyParamCaption})}
+
+funkcja tworzy dwuwymiarową tablicę sąsiadów na początku zapełnia ją zerami, żeby domyślnie liczba sąsiadów była zero następnie w komórki tej tablicy wpisuje liczbę żywych sąsiadów komórki tablicy, która jest dana jako parametr \mbox{\Hypertarget{class_main_window_a76eaa737c7d042d2d14ad788f765e2c6}\label{class_main_window_a76eaa737c7d042d2d14ad788f765e2c6}} 
+\index{MainWindow@{MainWindow}!testujGet2d@{testujGet2d}}
+\index{testujGet2d@{testujGet2d}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{testujGet2d()}{testujGet2d()}}
+{\footnotesize\ttfamily void Main\+Window\+::testuj\+Get2d (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_main_window_afa255473cbf14b082f216d4c5109b214}\label{class_main_window_afa255473cbf14b082f216d4c5109b214}} 
+\index{MainWindow@{MainWindow}!testujKrok@{testujKrok}}
+\index{testujKrok@{testujKrok}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{testujKrok()}{testujKrok()}}
+{\footnotesize\ttfamily void Main\+Window\+::testuj\+Krok (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_main_window_afc843f200efa72fd4f63138ec194f21b}\label{class_main_window_afc843f200efa72fd4f63138ec194f21b}} 
+\index{MainWindow@{MainWindow}!testujLicznikSasiadowMoore@{testujLicznikSasiadowMoore}}
+\index{testujLicznikSasiadowMoore@{testujLicznikSasiadowMoore}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{testujLicznikSasiadowMoore()}{testujLicznikSasiadowMoore()}}
+{\footnotesize\ttfamily void Main\+Window\+::testuj\+Licznik\+Sasiadow\+Moore (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_main_window_a87a2cdbf55a0f233a08a83ae55368851}\label{class_main_window_a87a2cdbf55a0f233a08a83ae55368851}} 
+\index{MainWindow@{MainWindow}!testujLicznikSasiadowNeumann@{testujLicznikSasiadowNeumann}}
+\index{testujLicznikSasiadowNeumann@{testujLicznikSasiadowNeumann}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{testujLicznikSasiadowNeumann()}{testujLicznikSasiadowNeumann()}}
+{\footnotesize\ttfamily void Main\+Window\+::testuj\+Licznik\+Sasiadow\+Neumann (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_main_window_aff1cbc50a63e1fab330cc96e42d29b56}\label{class_main_window_aff1cbc50a63e1fab330cc96e42d29b56}} 
+\index{MainWindow@{MainWindow}!testujTablicaWszystkichSasiadow@{testujTablicaWszystkichSasiadow}}
+\index{testujTablicaWszystkichSasiadow@{testujTablicaWszystkichSasiadow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{testujTablicaWszystkichSasiadow()}{testujTablicaWszystkichSasiadow()}}
+{\footnotesize\ttfamily void Main\+Window\+::testuj\+Tablica\+Wszystkich\+Sasiadow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_main_window_a5e6f29d3c7e0b3589d84cb6bb91ece4e}\label{class_main_window_a5e6f29d3c7e0b3589d84cb6bb91ece4e}} 
+\index{MainWindow@{MainWindow}!testujUmiescWRamce@{testujUmiescWRamce}}
+\index{testujUmiescWRamce@{testujUmiescWRamce}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{testujUmiescWRamce()}{testujUmiescWRamce()}}
+{\footnotesize\ttfamily void Main\+Window\+::testuj\+Umiesc\+WRamce (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_main_window_a422f5ee6beeb3f13d6babc340ca16dad}\label{class_main_window_a422f5ee6beeb3f13d6babc340ca16dad}} 
+\index{MainWindow@{MainWindow}!testujWszystko@{testujWszystko}}
+\index{testujWszystko@{testujWszystko}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{testujWszystko()}{testujWszystko()}}
+{\footnotesize\ttfamily void Main\+Window\+::testuj\+Wszystko (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_main_window_aec99f350489deca7d8aea9a46a4af9c7}\label{class_main_window_aec99f350489deca7d8aea9a46a4af9c7}} 
+\index{MainWindow@{MainWindow}!toggleCell@{toggleCell}}
+\index{toggleCell@{toggleCell}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{toggleCell()}{toggleCell()}}
+{\footnotesize\ttfamily void Main\+Window\+::toggle\+Cell (\begin{DoxyParamCaption}\item[{int}]{ktory\+\_\+kwadracik\+\_\+x,  }\item[{int}]{ktory\+\_\+kwadracik\+\_\+y }\end{DoxyParamCaption})}
+
+funkcja sprawia, że kwadracik zmienia kolor przy kliknięciu \mbox{\Hypertarget{class_main_window_a56e0f9bcf0ac0d654388bb94e52615cf}\label{class_main_window_a56e0f9bcf0ac0d654388bb94e52615cf}} 
+\index{MainWindow@{MainWindow}!toggleStart@{toggleStart}}
+\index{toggleStart@{toggleStart}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{toggleStart}{toggleStart}}
+{\footnotesize\ttfamily void Main\+Window\+::toggle\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+funkcja do guzika start uruchamia się po naciśnięciu guzika start/stop jeśli program jest w trakcie działania, naciśnięcie guzika zatrzymuje program i zamienia tekst na start jeśli program akurat nie działa, ustawia interwał na 100 i odpala program, a tekst zamienia na stop \mbox{\Hypertarget{class_main_window_a838a927eb3dfd7ea6ef9e4f17ade5f66}\label{class_main_window_a838a927eb3dfd7ea6ef9e4f17ade5f66}} 
+\index{MainWindow@{MainWindow}!umiescWRamce@{umiescWRamce}}
+\index{umiescWRamce@{umiescWRamce}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{umiescWRamce()}{umiescWRamce()}}
+{\footnotesize\ttfamily int $\ast$$\ast$ Main\+Window\+::umiesc\+WRamce (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{tab,  }\item[{int}]{N }\end{DoxyParamCaption})}
+
+funkcja tworzy tablicę o dwa większą od tablicy danej jako parametr funkcji potem zapełnia ją zerami potem w środek tej tablicy wkłada tablicę daną jako paramter funkcji \mbox{\Hypertarget{class_main_window_ad47efc353f0fc3ceba289c98ff20000f}\label{class_main_window_ad47efc353f0fc3ceba289c98ff20000f}} 
+\index{MainWindow@{MainWindow}!wypelnij@{wypelnij}}
+\index{wypelnij@{wypelnij}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{wypelnij()}{wypelnij()}}
+{\footnotesize\ttfamily void Main\+Window\+::wypelnij (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{tab,  }\item[{int}]{N }\end{DoxyParamCaption})}
+
+funkcja wypełnia dwuwymiarową tablicę losowo zerami i jedynkami \mbox{\Hypertarget{class_main_window_a23c659005620417402744d731bcfce25}\label{class_main_window_a23c659005620417402744d731bcfce25}} 
+\index{MainWindow@{MainWindow}!wypelnijZerami@{wypelnijZerami}}
+\index{wypelnijZerami@{wypelnijZerami}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{wypelnijZerami()}{wypelnijZerami()}}
+{\footnotesize\ttfamily void Main\+Window\+::wypelnij\+Zerami (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{tab,  }\item[{int}]{N }\end{DoxyParamCaption})}
+
+funkcja wypełnia dwuwymiarową tablicę zerami ta funkcja jest potrzebna, żeby w funkcji umiesc\+WRamce zapełnić zerami ramkę 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mainwindow_8h}{mainwindow.\+h}}\item 
+\mbox{\hyperlink{mainwindow_8cpp}{mainwindow.\+cpp}}\item 
+\mbox{\hyperlink{testowanie_8cpp}{testowanie.\+cpp}}\end{DoxyCompactItemize}
