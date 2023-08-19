@@ -6,6 +6,90 @@
 #include <ctime>
 #include <QMouseEvent>
 #include <QColor>
+//#include "Point.h"
+
+// Constructor implementation
+Point::Point(int x, int y) : x(x), y(y) {}
+
+// Getter for x
+int Point::getX() {
+    return x;
+}
+
+// Setter for x
+void Point::setX(int x) {
+    this->x = x;
+}
+
+// Getter for y
+int Point::getY() {
+    return y;
+}
+
+// Setter for y
+void Point::setY(int y) {
+    this->y = y;
+}
+
+
+Cell::Cell(int x, int y, bool alive) : Point(x, y), alive(alive) {}
+
+bool Cell::isAlive() {
+    return alive;
+}
+
+void Cell::setAlive(bool alive) {
+    this->alive = alive;
+}
+
+
+//class Board {
+//private:
+//    static const int rows = 10;
+//    static const int cols = 10;
+//    Cell cells[rows][cols];
+
+//public:
+//    Board() {
+//        for (int i = 0; i < rows; ++i) {
+//            for (int j = 0; j < cols; ++j) {
+//                // Initialize cells with default values
+//                cells[i][j] = Cell(i, j, false);
+//            }
+//        }
+//    }
+
+//    void setCellAlive(int x, int y, bool alive) {
+//        if (x >= 0 && x < rows && y >= 0 && y < cols) {
+//            cells[x][y].alive = alive;
+//        }
+//    }
+
+//    void display() {
+//        for (int i = 0; i < rows; ++i) {
+//            for (int j = 0; j < cols; ++j) {
+//                std::cout << (cells[i][j].alive ? "1" : "0") << " ";
+//            }
+//            std::cout << std::endl;
+//        }
+//    }
+//};
+
+//int main() {
+//    Board board
+//        ;
+
+//    // Set some cells alive
+//    board.setCellAlive(1, 2, true);
+//    board.setCellAlive(3, 4, true);
+//    board.setCellAlive(5, 6, true);
+
+//    // Display the game panel
+//    board.display();
+
+//    return 0;
+//}
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

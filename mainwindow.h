@@ -69,4 +69,41 @@ private:
     QTimer* timer;
 };
 
+class Point {
+private:
+    int x;
+    int y;
+
+public:
+    Point(int x, int y);
+    int getX();
+    void setX(int x);
+    int getY();
+    void setY(int y);
+};
+
+class Cell : public Point {
+private:
+    bool alive;
+
+public:
+    Cell(int x, int y, bool alive);
+    bool isAlive();
+    void setAlive(bool alive);
+};
+
+//class Board {
+//private:
+//    static const int rows = 10;
+//    static const int cols = 10;
+//    Cell cells[rows][cols];
+
+//public:
+//    Board();
+//    void setCellAlive(int x, int y, bool alive);
+//    void display();
+//};
+
+
+
 #endif // MAINWINDOW_H
