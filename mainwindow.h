@@ -92,17 +92,17 @@ public:
     void setAlive(bool alive);
 };
 
-//class Board {
-//private:
-//    static const int rows = 10;
-//    static const int cols = 10;
-//    Cell cells[rows][cols];
+class Board {
+private:
+    int rows;
+    int cols;
+    Cell*** cells;
 
-//public:
-//    Board();
-//    void setCellAlive(int x, int y, bool alive);
+public:
+    Board(int size);
+    void setCellAlive(int x, int y, bool alive);
 //    void display();
-//};
+};
 
 
 

@@ -42,38 +42,49 @@ void Cell::setAlive(bool alive) {
     this->alive = alive;
 }
 
+// Constructor for the Board class
+Board::Board(int size) {
+    rows = size;
+    cols = size;
 
-//class Board {
-//private:
-//    static const int rows = 10;
-//    static const int cols = 10;
-//    Cell cells[rows][cols];
+    // Create a 2D array of Cell objects
+    cells = new Cell**[rows];
+    for (int i = 0; i < rows; i++) {
+        cells[i] = new Cell*[cols];
+        for (int j = 0; j < cols; j++) {
+            cells[i][j] = new Cell(i, j, false);
+        }
+    }
+}
 
-//public:
-//    Board() {
-//        for (int i = 0; i < rows; ++i) {
-//            for (int j = 0; j < cols; ++j) {
-//                // Initialize cells with default values
-//                cells[i][j] = Cell(i, j, false);
-//            }
+// Method to set the state of a cell at position (x, y)
+void Board::setCellAlive(int x, int y, bool alive) {
+    // Check if the given coordinates are within bounds
+    if (x >= 0 && x < rows && y >= 0 && y < cols) {
+        cells[x][y]->setAlive(alive);
+    } else {
+        std::cerr << "Error: Coordinates out of bounds." << std::endl;
+    }
+}
+
+//// Method to display the current state of the board
+// display nie jest potrzebne, mam inne rzeczy do wyswietlania
+//void Board::display() {
+//    for (int i = 0; i < rows; i++) {
+//        for (int j = 0; j < cols; j++) {
+//            std::cout << (cells[i][j].isAlive() ? '*' : ' ') << ' ';
 //        }
+//        std::cout << std::endl;
 //    }
+//}
 
-//    void setCellAlive(int x, int y, bool alive) {
-//        if (x >= 0 && x < rows && y >= 0 && y < cols) {
-//            cells[x][y].alive = alive;
-//        }
+// Destructor to free dynamically allocated memory
+//Board::~Board() {
+//    for (int i = 0; i < rows; i++) {
+//        delete[] cells[i];
 //    }
-
-//    void display() {
-//        for (int i = 0; i < rows; ++i) {
-//            for (int j = 0; j < cols; ++j) {
-//                std::cout << (cells[i][j].alive ? "1" : "0") << " ";
-//            }
-//            std::cout << std::endl;
-//        }
-//    }
-//};
+//    delete[] cells;
+//}
 
 //int main() {
 //    Board board
