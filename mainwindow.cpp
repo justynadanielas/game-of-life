@@ -67,39 +67,9 @@ void Board::setCellAlive(int x, int y, bool alive) {
     }
 }
 
-//// Method to display the current state of the board
-// display nie jest potrzebne, mam inne rzeczy do wyswietlania
-//void Board::display() {
-//    for (int i = 0; i < rows; i++) {
-//        for (int j = 0; j < cols; j++) {
-//            std::cout << (cells[i][j].isAlive() ? '*' : ' ') << ' ';
-//        }
-//        std::cout << std::endl;
-//    }
-//}
-
-// Destructor to free dynamically allocated memory
-//Board::~Board() {
-//    for (int i = 0; i < rows; i++) {
-//        delete[] cells[i];
-//    }
-//    delete[] cells;
-//}
-
-//int main() {
-//    Board board
-//        ;
-
-//    // Set some cells alive
-//    board.setCellAlive(1, 2, true);
-//    board.setCellAlive(3, 4, true);
-//    board.setCellAlive(5, 6, true);
-
-//    // Display the game panel
-//    board.display();
-
-//    return 0;
-//}
+bool Board::isCellAlive(int x, int y) {
+    return cells[x][y]->isAlive();
+}
 
 
 MainWindow::MainWindow(QWidget *parent)

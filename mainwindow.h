@@ -101,6 +101,7 @@ private:
 public:
     Board(int size);
     void setCellAlive(int x, int y, bool alive);
+    bool isCellAlive(int x, int y);
 //    void display();
 };
 
