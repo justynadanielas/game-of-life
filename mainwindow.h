@@ -97,11 +97,17 @@ private:
     int rows;
     int cols;
     Cell*** cells;
+    int neumannNeighborCounter(int i, int j);
+    int diagonalNeighborCounter(int i, int j);
+    int mooreNeighborCounter(int i, int j);
 
 public:
     Board(int size);
     void setCellAlive(int x, int y, bool alive);
     bool isCellAlive(int x, int y);
+    // być może powinno też jako parametr przyjmować rozmiar tablicy?
+    void putRandomValues();
+
 //    void display();
 };
 

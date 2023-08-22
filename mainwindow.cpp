@@ -46,11 +46,13 @@ void Cell::setAlive(bool alive) {
 Board::Board(int size) {
     rows = size;
     cols = size;
+    rows_with_frame = rows + 2;
+    cols_with_frame = cols + 2;
 
     // Create a 2D array of Cell objects
-    cells = new Cell**[rows];
+    cells = new Cell**[rows_with_frame];
     for (int i = 0; i < rows; i++) {
-        cells[i] = new Cell*[cols];
+        cells[i] = new Cell*[cols_with_frame];
         for (int j = 0; j < cols; j++) {
             cells[i][j] = new Cell(i, j, false);
         }
@@ -71,14 +73,65 @@ bool Board::isCellAlive(int x, int y) {
     return cells[x][y]->isAlive();
 }
 
+void Board::putRandomValues() {
+    srand(time(0));
+    // chcę, żeby tablica miała ramkę z zer, więc zaczynam indeksowanie od 1 i kończę na cols+1 (lub rows+1)
+    for (int i = 1; i <= cols; i++) {
+        for (int j = 1; j <= rows; j++) {
+            setCellAlive(i, j, rand() % 2);
+        }
+    }
+}
+
+int Board::NeumannNeighborCounter(int i, int j) {
+    int counter = 0;
+    if (cells[i - 1][j]->isAlive()) {
+        counter++;
+    }
+    if (cells[i][j + 1]->isAlive()) {
+        counter++;
+    }
+    if (cells[i + 1][j]->isAlive()) {
+        counter++;
+    }
+    if (cells[i][j - 1]->isAlive()) {
+        counter++;
+    }
+    return counter;
+}
+
+int Board::diagonalNeighborCounter(int i, int j) {
+    int counter = 0;
+    if (cells[i - 1][j - 1]->isAlive()) {
+        counter++;
+    }
+    if (cells[i - 1][j + 1]->isAlive()) {
+        counter++;
+    }
+    if (cells[i + 1][j + 1]->isAlive()) {
+        counter++;
+    }
+    if (cells[i + 1][j - 1]->isAlive()) {
+        counter++;
+    }
+    return counter;
+}
+
+int Board::mooreNeighborCounter(int i, int j) {
+    return neumannNeighborCounter(i, j) + diagonalNeighborCounter(i, j);
+}
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    state = get2d(N); //N zadeklarowane w .h
-    wypelnij(state, N);
+//    state = get2d(N); //N zadeklarowane w .h
+    Board board = new Board(N);
+    board.putRandomValues();
+    // tu zamiast wypełnij będzie metoda klasy Board
+//    wypelnij(state, N);
     timer = new QTimer;
     timer->setInterval(100);
     connect(timer, SIGNAL(timeout()), this, SLOT(krok2())); //(odmierza interwały, w których wykonuje się krok)
