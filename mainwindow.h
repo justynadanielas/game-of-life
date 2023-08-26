@@ -85,6 +85,7 @@ public:
 class Cell : public Point {
 private:
     bool alive;
+    int numOfNeighbors;
 
 public:
     Cell(int x, int y, bool alive);

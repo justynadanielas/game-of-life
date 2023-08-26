@@ -42,6 +42,14 @@ void Cell::setAlive(bool alive) {
     this->alive = alive;
 }
 
+int Cell::getNumOfNeighbors() {
+    return numOfNeighbors;
+}
+
+void Cell::setNumOfNeighbors(int numOfNeighbors) {
+    this->numOfNeighbors = numOfNeighbors;
+}
+
 // Constructor for the Board class
 Board::Board(int size) {
     rows = size;
