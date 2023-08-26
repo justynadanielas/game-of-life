@@ -32,7 +32,9 @@ void Point::setY(int y) {
 }
 
 
-Cell::Cell(int x, int y, bool alive) : Point(x, y), alive(alive) {}
+Cell::Cell(int x, int y, bool alive) : Point(x, y), alive(alive) {
+    numOfNeighbors = 0;
+}
 
 bool Cell::isAlive() {
     return alive;
@@ -54,13 +56,13 @@ void Cell::setNumOfNeighbors(int numOfNeighbors) {
 Board::Board(int size) {
     rows = size;
     cols = size;
-    rows_with_frame = rows + 2;
-    cols_with_frame = cols + 2;
+    rowsWithFrame = rows + 2;
+    colsWithFrame = cols + 2;
 
     // Create a 2D array of Cell objects
-    cells = new Cell**[rows_with_frame];
+    cells = new Cell**[rowsWithFrame];
     for (int i = 0; i < rows; i++) {
-        cells[i] = new Cell*[cols_with_frame];
+        cells[i] = new Cell*[colsWithFrame];
         for (int j = 0; j < cols; j++) {
             cells[i][j] = new Cell(i, j, false);
         }
@@ -127,6 +129,14 @@ int Board::diagonalNeighborCounter(int i, int j) {
 
 int Board::mooreNeighborCounter(int i, int j) {
     return neumannNeighborCounter(i, j) + diagonalNeighborCounter(i, j);
+}
+
+void Board::countNeighborsForEachCell() {
+    for (int i = 1; i <= cols; i++) {
+        for (int j = 1; j <= rows; j++) {
+            cells[i][j]->setNumOfNeighbors(mooreNeighborCounter(i, j));
+        }
+    }
 }
 
 

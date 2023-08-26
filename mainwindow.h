@@ -91,6 +91,8 @@ public:
     Cell(int x, int y, bool alive);
     bool isAlive();
     void setAlive(bool alive);
+    int getNumOfNeighbors();
+    void setNumOfNeighbors(int numOfNeighbors);
 };
 
 class Board {
@@ -101,6 +103,7 @@ private:
     int neumannNeighborCounter(int i, int j);
     int diagonalNeighborCounter(int i, int j);
     int mooreNeighborCounter(int i, int j);
+    void countNeighborsForEachCell();
 
 public:
     Board(int size);
