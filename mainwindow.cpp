@@ -60,6 +60,7 @@ Board::Board(int size) {
     colsWithFrame = cols + 2;
 
     // Create a 2D array of Cell objects
+    std::cout<<"dupa"<<std::endl;
     cells = new Cell**[rowsWithFrame];
     for (int i = 0; i < rows; i++) {
         cells[i] = new Cell*[colsWithFrame];
@@ -67,6 +68,7 @@ Board::Board(int size) {
             cells[i][j] = new Cell(i, j, false);
         }
     }
+    std::cout<<"dupa2"<<std::endl;
 }
 
 // Method to set the state of a cell at position (x, y)
@@ -93,7 +95,7 @@ void Board::putRandomValues() {
     }
 }
 
-int Board::NeumannNeighborCounter(int i, int j) {
+int Board::neumannNeighborCounter(int i, int j) {
     int counter = 0;
     if (cells[i - 1][j]->isAlive()) {
         counter++;
@@ -139,6 +141,24 @@ void Board::countNeighborsForEachCell() {
     }
 }
 
+void Board::step() {
+    for (int i = 1; i <= cols; i++) {
+        for (int j = 1; j <= rows; j++) {
+            if (cells[i][j]->getNumOfNeighbors() == 3 && !cells[i][j]->isAlive()) {
+                cells[i][j]->setAlive(true);
+            }
+            else if ((cells[i][j]->getNumOfNeighbors() == 3 || cells[i][j]->getNumOfNeighbors() == 2) && cells[i][j]->isAlive()) {
+                cells[i][j]->setAlive(true);
+            }
+            else {
+                cells[i][j]->setAlive(false);
+            }
+        }
+    }
+//    update(); ta funkcja nie dziala, bo jest z MainWindow
+    // do naprawy
+}
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -146,8 +166,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 //    state = get2d(N); //N zadeklarowane w .h
-    Board board = new Board(N);
-    board.putRandomValues();
+    board = new Board(N);
+    board->putRandomValues();
     // tu zamiast wypełnij będzie metoda klasy Board
 //    wypelnij(state, N);
     timer = new QTimer;
@@ -317,21 +337,7 @@ void MainWindow::krok(int** tab, int N) {
 */
 
 void MainWindow::krok2() {
-    int** tab1 = umiescWRamce(state, N);
-    int** tabSasiadow = tablicaWszystkichSasiadow(tab1, N);
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            if (tabSasiadow[i][j] == 3 && state[i][j] == 0) {
-                state[i][j] = 1;
-            }
-            else if ((tabSasiadow[i][j] == 3 || tabSasiadow[i][j] == 2) && state[i][j] == 1) {
-                state[i][j] = 1;
-            }
-            else {
-                state[i][j] = 0;
-            }
-        }
-    }
+    board->step();
     update(); //służy do tego, żeby okno rysowało się dwa razy
 }
 
