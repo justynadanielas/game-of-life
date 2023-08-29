@@ -60,24 +60,26 @@ Board::Board(int size) {
     colsWithFrame = cols + 2;
 
     // Create a 2D array of Cell objects
-    std::cout<<"dupa"<<std::endl;
+//    std::cout<<"dupa"<<std::endl;
     cells = new Cell**[rowsWithFrame];
-    for (int i = 0; i < rows; i++) {
+    for (int i = 0; i < rowsWithFrame; i++) {
         cells[i] = new Cell*[colsWithFrame];
-        for (int j = 0; j < cols; j++) {
+        for (int j = 0; j < colsWithFrame; j++) {
             cells[i][j] = new Cell(i, j, false);
+//            std::cout<<"created cell: x = " << i << " i y = " << j << std::endl;
         }
     }
-    std::cout<<"dupa2"<<std::endl;
+//    std::cout<<"dupa2"<<std::endl;
 }
 
 // Method to set the state of a cell at position (x, y)
 void Board::setCellAlive(int x, int y, bool alive) {
     // Check if the given coordinates are within bounds
-    if (x >= 0 && x < rows && y >= 0 && y < cols) {
+    if (x >= 1 && x <= rows && y >= 1 && y <= cols) {
         cells[x][y]->setAlive(alive);
+//        std::cout<< "Udalo sie ustawic dla x = " << x << " i y = " << y << std::endl;
     } else {
-        std::cerr << "Error: Coordinates out of bounds." << std::endl;
+        std::cerr << "Error: Coordinates out of bounds, x = " << x << ", y = " << y << std::endl;
     }
 }
 
@@ -142,8 +144,10 @@ void Board::countNeighborsForEachCell() {
 }
 
 void Board::step() {
+    this->countNeighborsForEachCell();
     for (int i = 1; i <= cols; i++) {
         for (int j = 1; j <= rows; j++) {
+            std::cout<<cells[i][j]->getNumOfNeighbors()<<std::endl;
             if (cells[i][j]->getNumOfNeighbors() == 3 && !cells[i][j]->isAlive()) {
                 cells[i][j]->setAlive(true);
             }
@@ -167,7 +171,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 //    state = get2d(N); //N zadeklarowane w .h
     board = new Board(N);
+    std::cout<<"dupa3"<<std::endl;
     board->putRandomValues();
+    std::cout<<"dupa4"<<std::endl;
     // tu zamiast wypełnij będzie metoda klasy Board
 //    wypelnij(state, N);
     timer = new QTimer;
@@ -401,9 +407,9 @@ void MainWindow::kasuj1d(int*& tab) {
 
 void MainWindow::paintEvent(QPaintEvent* event){
     QPainter painter(this); //painter to nazwa zmiennej; QPainter to klasa
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            if(state[i][j]==1){
+    for(int i=1; i<=N; i++){
+        for(int j=1; j<=N; j++){
+            if(board->isCellAlive(i, j)){
                 //rysowanieKwadracikow(i, j);
                 painter.setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
                 painter.drawRect(QRect(20+20*i, 20+20*j, 20, 20));
