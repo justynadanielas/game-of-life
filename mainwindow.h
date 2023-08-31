@@ -68,6 +68,7 @@ public:
     // być może powinno też jako parametr przyjmować rozmiar tablicy?
     void putRandomValues();
     void step();
+    void toggleCell(int x, int y);
 
 //    void display();
 };
@@ -111,7 +112,7 @@ public:
 public slots:
     void krok(int** tab, int N);
     void krok2();
-    void toggleStart();
+//    void toggleStart();
     void czyszczenieTablicy();
     void randomowanieTablicy();
 

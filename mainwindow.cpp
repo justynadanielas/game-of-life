@@ -159,8 +159,14 @@ void Board::step() {
             }
         }
     }
-//    update(); ta funkcja nie dziala, bo jest z MainWindow
-    // do naprawy
+}
+
+void Board::toggleCell(int x, int y){
+    if(cells[x][y]->isAlive()){
+        cells[x][y]->setAlive(0);
+    }else{
+        cells[x][y]->setAlive(1);
+    }
 }
 
 
@@ -171,21 +177,21 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 //    state = get2d(N); //N zadeklarowane w .h
     board = new Board(N);
-    std::cout<<"dupa3"<<std::endl;
+//    std::cout<<"dupa3"<<std::endl;
     board->putRandomValues();
-    std::cout<<"dupa4"<<std::endl;
-    // tu zamiast wypełnij będzie metoda klasy Board
+//    std::cout<<"dupa4"<<std::endl;
 //    wypelnij(state, N);
     timer = new QTimer;
     timer->setInterval(100);
     connect(timer, SIGNAL(timeout()), this, SLOT(krok2())); //(odmierza interwały, w których wykonuje się krok)
     //timer->start(); //timer start uruchamia caly program (teraz jest w funkcji toggle start)
-    connect(ui->pushButton, SIGNAL(clicked(bool)), this, SLOT(toggleStart()));//pierwszy argument to to co wywołuje funkcję;
+//    connect(ui->pushButton, SIGNAL(clicked(bool)), this, SLOT(toggleStart()));//pierwszy argument to to co wywołuje funkcję;
                                                          //po przecinku to co się ma dziać z guzikiem;
                                                          //to co ma przyjmować ten sygnał (main window)
                                                          //to jaka funkcja ma się wywołać
-    connect(ui->pushButton_2, SIGNAL(clicked(bool)), this, SLOT(czyszczenieTablicy()));
-    connect(ui->pushButton_3, SIGNAL(clicked(bool)), this, SLOT(randomowanieTablicy()));
+    timer->start();
+//    connect(ui->pushButton_2, SIGNAL(clicked(bool)), this, SLOT(czyszczenieTablicy()));
+//    connect(ui->pushButton_3, SIGNAL(clicked(bool)), this, SLOT(randomowanieTablicy()));
 }
 
 MainWindow::~MainWindow()
@@ -428,27 +434,27 @@ void MainWindow::paintEvent(QPaintEvent* event){
  *  jeśli program akurat nie działa, ustawia interwał na 100 i odpala program, a tekst zamienia na stop
 */
 
-void MainWindow::toggleStart(){
-    if(timer->isActive()){
-        timer->stop();
-        ui->pushButton->setText("Start");
-    }else{
-        timer->setInterval(100); //ustawiam taki sam interwał jak w metodzie MainWindow(czyli co 100 ma się wykonać krok2)
-        timer->start();
-        ui->pushButton->setText("Stop");
-    }
-}
+//void MainWindow::toggleStart(){
+//    if(timer->isActive()){
+//        timer->stop();
+//        ui->pushButton->setText("Start");
+//    }else{
+//        timer->setInterval(100); //ustawiam taki sam interwał jak w metodzie MainWindow(czyli co 100 ma się wykonać krok2)
+//        timer->start();
+//        ui->pushButton->setText("Stop");
+//    }
+//}
 
 /** funkcja sprawia, że kwadracik zmienia kolor przy kliknięciu
 */
 
-void MainWindow::toggleCell(int ktory_kwadracik_x, int ktory_kwadracik_y){
-    if(state[ktory_kwadracik_x][ktory_kwadracik_y]==1){
-        state[ktory_kwadracik_x][ktory_kwadracik_y] = 0;
-    }else{
-        state[ktory_kwadracik_x][ktory_kwadracik_y] = 1;
-    }
-}
+//void MainWindow::toggleCell(int ktory_kwadracik_x, int ktory_kwadracik_y){
+//    if(state[ktory_kwadracik_x][ktory_kwadracik_y]==1){
+//        state[ktory_kwadracik_x][ktory_kwadracik_y] = 0;
+//    }else{
+//        state[ktory_kwadracik_x][ktory_kwadracik_y] = 1;
+//    }
+//}
 
 /** nadpisana funkcja z QWidget
 *  w zmiennych x i y przechowuje współrzędne kliknięcia
@@ -464,7 +470,7 @@ void MainWindow::mousePressEvent(QMouseEvent* event){
     //20 to długość boku kwadratu
     int ktory_kwadracik_x = (x/20)-1;
     int ktory_kwadracik_y = (y/20)-1;
-    toggleCell(ktory_kwadracik_x, ktory_kwadracik_y);
+    board->toggleCell(ktory_kwadracik_x, ktory_kwadracik_y);
     std::cout<<"x:"<<ktory_kwadracik_x <<" y:"<<ktory_kwadracik_y<<std::endl;
     update();
 }
