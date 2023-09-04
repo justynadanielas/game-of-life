@@ -62,13 +62,13 @@ private:
     void countNeighborsForEachCell();
 
 public:
-    Board(int size);
-    void setCellAlive(int x, int y, bool alive);
-    bool isCellAlive(int x, int y);
+    Board(int rows, int cols);
+    void setCellAlive(int i, int j, bool alive);
+    bool isCellAlive(int i, int j);
     // być może powinno też jako parametr przyjmować rozmiar tablicy?
     void putRandomValues();
     void step();
-    void toggleCell(int x, int y);
+    void toggleCell(int i, int j);
 
 //    void display();
 };
@@ -81,27 +81,27 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    int** get2d(int N);
-    void wypelnij(int** tab, int N);
-    void wypelnijZerami(int** tab, int N);
-    int** umiescWRamce(int** tab, int N);
-    int licznikSasiadowNeumann(int** tab, int i, int j);
-    int licznikSasiadowMoore(int** tab, int i, int j);
-    int licznikSasiadow(int** tab, int i, int j);
-    int** tablicaWszystkichSasiadow(int** tab, int N);
-    void run(int** tab, int N);
+//    int** get2d(int N);
+//    void wypelnij(int** tab, int N);
+//    void wypelnijZerami(int** tab, int N);
+//    int** umiescWRamce(int** tab, int N);
+//    int licznikSasiadowNeumann(int** tab, int i, int j);
+//    int licznikSasiadowMoore(int** tab, int i, int j);
+//    int licznikSasiadow(int** tab, int i, int j);
+//    int** tablicaWszystkichSasiadow(int** tab, int N);
+//    void run(int** tab, int N);
     void kasuj(int**& tab, int N);
     void kasuj1d(int*& tab);
     Board* board;
 
     //testowanie
-    void testujGet2d();
-    void testujUmiescWRamce();
-    void testujLicznikSasiadowNeumann();
-    void testujLicznikSasiadowMoore();
-    void testujTablicaWszystkichSasiadow();
-    void testujKrok();
-    void testujWszystko();
+//    void testujGet2d();
+//    void testujUmiescWRamce();
+//    void testujLicznikSasiadowNeumann();
+//    void testujLicznikSasiadowMoore();
+//    void testujTablicaWszystkichSasiadow();
+//    void testujKrok();
+//    void testujWszystko();
 
     //rysowanie prostokątów
     virtual void paintEvent(QPaintEvent* event);
@@ -110,16 +110,19 @@ public:
     //void rysowanieKwadracikow(int i, int j);
 
 public slots:
-    void krok(int** tab, int N);
+//    void krok(int** tab, int N);
     void krok2();
 //    void toggleStart();
-    void czyszczenieTablicy();
-    void randomowanieTablicy();
+//    void czyszczenieTablicy();
+//    void randomowanieTablicy();
 
 private:
     Ui::MainWindow *ui;
     int** state;
-    int N = 24; //NxN to rozmiar tablicy komórek
+//    int N = 30; //NxN to rozmiar tablicy komórek
+    int cellSide;
+    int rows;
+    int cols;
     QTimer* timer;
 };
 

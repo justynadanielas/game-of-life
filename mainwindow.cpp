@@ -6,6 +6,7 @@
 #include <ctime>
 #include <QMouseEvent>
 #include <QColor>
+#include <QScreen>
 //#include "Point.h"
 
 // Constructor implementation
@@ -32,7 +33,7 @@ void Point::setY(int y) {
 }
 
 
-Cell::Cell(int x, int y, bool alive) : Point(x, y), alive(alive) {
+Cell::Cell(int row_num, int col_num, bool alive) : Point(col_num, row_num), alive(alive) {
     numOfNeighbors = 0;
 }
 
@@ -53,9 +54,9 @@ void Cell::setNumOfNeighbors(int numOfNeighbors) {
 }
 
 // Constructor for the Board class
-Board::Board(int size) {
-    rows = size;
-    cols = size;
+Board::Board(int rows, int cols) {
+    this->rows = rows;
+    this->cols = cols;
     rowsWithFrame = rows + 2;
     colsWithFrame = cols + 2;
 
@@ -73,25 +74,25 @@ Board::Board(int size) {
 }
 
 // Method to set the state of a cell at position (x, y)
-void Board::setCellAlive(int x, int y, bool alive) {
+void Board::setCellAlive(int i, int j, bool alive) {
     // Check if the given coordinates are within bounds
-    if (x >= 1 && x <= rows && y >= 1 && y <= cols) {
-        cells[x][y]->setAlive(alive);
+    if (i >= 1 && i <= rows && j >= 1 && j <= cols) {
+        cells[i][j]->setAlive(alive);
 //        std::cout<< "Udalo sie ustawic dla x = " << x << " i y = " << y << std::endl;
     } else {
-        std::cerr << "Error: Coordinates out of bounds, x = " << x << ", y = " << y << std::endl;
+        std::cerr << "Error: Coordinates out of bounds, x = " << i << ", y = " << j << std::endl;
     }
 }
 
-bool Board::isCellAlive(int x, int y) {
-    return cells[x][y]->isAlive();
+bool Board::isCellAlive(int i, int j) {
+    return cells[i][j]->isAlive();
 }
 
 void Board::putRandomValues() {
     srand(time(0));
     // chcę, żeby tablica miała ramkę z zer, więc zaczynam indeksowanie od 1 i kończę na cols+1 (lub rows+1)
-    for (int i = 1; i <= cols; i++) {
-        for (int j = 1; j <= rows; j++) {
+    for (int i = 1; i <= rows; i++) {
+        for (int j = 1; j <= cols; j++) {
             setCellAlive(i, j, rand() % 2);
         }
     }
@@ -136,8 +137,8 @@ int Board::mooreNeighborCounter(int i, int j) {
 }
 
 void Board::countNeighborsForEachCell() {
-    for (int i = 1; i <= cols; i++) {
-        for (int j = 1; j <= rows; j++) {
+    for (int i = 1; i <= rows; i++) {
+        for (int j = 1; j <= cols; j++) {
             cells[i][j]->setNumOfNeighbors(mooreNeighborCounter(i, j));
         }
     }
@@ -145,9 +146,9 @@ void Board::countNeighborsForEachCell() {
 
 void Board::step() {
     this->countNeighborsForEachCell();
-    for (int i = 1; i <= cols; i++) {
-        for (int j = 1; j <= rows; j++) {
-            std::cout<<cells[i][j]->getNumOfNeighbors()<<std::endl;
+    for (int i = 1; i <= rows; i++) {
+        for (int j = 1; j <= cols; j++) {
+//            std::cout<<cells[i][j]->getNumOfNeighbors()<<std::endl;
             if (cells[i][j]->getNumOfNeighbors() == 3 && !cells[i][j]->isAlive()) {
                 cells[i][j]->setAlive(true);
             }
@@ -161,11 +162,11 @@ void Board::step() {
     }
 }
 
-void Board::toggleCell(int x, int y){
-    if(cells[x][y]->isAlive()){
-        cells[x][y]->setAlive(0);
+void Board::toggleCell(int i, int j){
+    if(cells[i][j]->isAlive()){
+        cells[i][j]->setAlive(0);
     }else{
-        cells[x][y]->setAlive(1);
+        cells[i][j]->setAlive(1);
     }
 }
 
@@ -175,8 +176,16 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // ustawianie wielkości tablicy na podstawie wielkości ekranu
+    QScreen *screen = QGuiApplication::primaryScreen();
+    int screenWidth = screen->size().width();
+    int screenHeight = screen->size().height();
+    cellSide = 20;
+//    std::cout<<screenWidth<<" "<<screenHeight<<std::endl;
 //    state = get2d(N); //N zadeklarowane w .h
-    board = new Board(N);
+    rows = screenHeight/cellSide;
+    cols = screenWidth/cellSide;
+    board = new Board(rows, cols);
 //    std::cout<<"dupa3"<<std::endl;
     board->putRandomValues();
 //    std::cout<<"dupa4"<<std::endl;
@@ -202,145 +211,145 @@ MainWindow::~MainWindow()
 /** funkcja tworzy dwuwymiarową dynamiczną tablicę
 */
 
-int** MainWindow::get2d(int N) {
-    int** tab = new int* [N];
-    for (int i = 0; i < N; i++) {
-        tab[i] = new int[N];
-    }
-    return tab;
-}
+//int** MainWindow::get2d(int N) {
+//    int** tab = new int* [N];
+//    for (int i = 0; i < N; i++) {
+//        tab[i] = new int[N];
+//    }
+//    return tab;
+//}
 
 /** funkcja wypełnia dwuwymiarową tablicę losowo zerami i jedynkami
 */
 
-void MainWindow::wypelnij(int** tab, int N) {
-    srand(time(0));
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            tab[i][j] = rand() % (2);
-        }
-    }
-}
+//void MainWindow::wypelnij(int** tab, int N) {
+//    srand(time(0));
+//    for (int i = 0; i < N; i++) {
+//        for (int j = 0; j < N; j++) {
+//            tab[i][j] = rand() % (2);
+//        }
+//    }
+//}
 
 /** funkcja wypełnia dwuwymiarową tablicę zerami
  *  ta funkcja jest potrzebna, żeby w funkcji umiescWRamce zapełnić zerami ramkę
 */
 
-void MainWindow::wypelnijZerami(int** tab, int N) {
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            tab[i][j] = 0;
-        }
-    }
-}
+//void MainWindow::wypelnijZerami(int** tab, int N) {
+//    for (int i = 0; i < N; i++) {
+//        for (int j = 0; j < N; j++) {
+//            tab[i][j] = 0;
+//        }
+//    }
+//}
 
 /** funkcja tworzy tablicę o dwa większą od tablicy danej jako parametr funkcji
  *  potem zapełnia ją zerami
  *  potem w środek tej tablicy wkłada tablicę daną jako paramter funkcji
 */
 
-int** MainWindow::umiescWRamce(int** tab, int N) {
-    int** ramka = get2d(N + 2);
-    wypelnijZerami(ramka, N + 2);
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            ramka[i + 1][j + 1] = tab[i][j];
-        }
-    }
-    return ramka;
-}
+//int** MainWindow::umiescWRamce(int** tab, int N) {
+//    int** ramka = get2d(N + 2);
+//    wypelnijZerami(ramka, N + 2);
+//    for (int i = 0; i < N; i++) {
+//        for (int j = 0; j < N; j++) {
+//            ramka[i + 1][j + 1] = tab[i][j];
+//        }
+//    }
+//    return ramka;
+//}
 
 /** funkcja oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Neumanna
  *  sąsiedztwo Neumanna to cztery komórki, które graniczą z centralną komórką krawędziami
 */
 
-int MainWindow::licznikSasiadowNeumann(int** tab, int i, int j) {
-    int licznik = 0;
-    if (tab[i - 1][j] == 1) {
-        licznik++;
-    }
-    if (tab[i][j + 1] == 1) {
-        licznik++;
-    }
-    if (tab[i + 1][j] == 1) {
-        licznik++;
-    }
-    if (tab[i][j - 1] == 1) {
-        licznik++;
-    }
-    return licznik;
-}
+//int MainWindow::licznikSasiadowNeumann(int** tab, int i, int j) {
+//    int licznik = 0;
+//    if (tab[i - 1][j] == 1) {
+//        licznik++;
+//    }
+//    if (tab[i][j + 1] == 1) {
+//        licznik++;
+//    }
+//    if (tab[i + 1][j] == 1) {
+//        licznik++;
+//    }
+//    if (tab[i][j - 1] == 1) {
+//        licznik++;
+//    }
+//    return licznik;
+//}
 
 /** funkcja oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Moore'a
  *  sąsiedztwo Moore'a to osiem komórek, które graniczą z centralną komórką krawędziami i wierzchołkami
  *  rozpatruję tylko te, które graniczą wierzchołkami, żeby potem dodać to do funkcji licznikSasiadowNeumann
 */
 
-int MainWindow::licznikSasiadowMoore(int** tab, int i, int j) {
-    int licznik = 0;
-    if (tab[i - 1][j - 1] == 1) {
-        licznik++;
-    }
-    if (tab[i - 1][j + 1] == 1) {
-        licznik++;
-    }
-    if (tab[i + 1][j + 1] == 1) {
-        licznik++;
-    }
-    if (tab[i + 1][j - 1] == 1) {
-        licznik++;
-    }
-    return licznik;
-}
+//int MainWindow::licznikSasiadowMoore(int** tab, int i, int j) {
+//    int licznik = 0;
+//    if (tab[i - 1][j - 1] == 1) {
+//        licznik++;
+//    }
+//    if (tab[i - 1][j + 1] == 1) {
+//        licznik++;
+//    }
+//    if (tab[i + 1][j + 1] == 1) {
+//        licznik++;
+//    }
+//    if (tab[i + 1][j - 1] == 1) {
+//        licznik++;
+//    }
+//    return licznik;
+//}
 
 /** funkcja dodaje tylko wartości obliczone w dwóch poprzednich funkcjach
 */
 
-int MainWindow::licznikSasiadow(int** tab, int i, int j) {
-    int licznik = 0;
-    licznik = licznikSasiadowMoore(tab, i, j) + licznikSasiadowNeumann(tab, i, j);
-    return licznik;
-}
+//int MainWindow::licznikSasiadow(int** tab, int i, int j) {
+//    int licznik = 0;
+//    licznik = licznikSasiadowMoore(tab, i, j) + licznikSasiadowNeumann(tab, i, j);
+//    return licznik;
+//}
 
 /** funkcja tworzy dwuwymiarową tablicę sąsiadów
  *  na początku zapełnia ją zerami, żeby domyślnie liczba sąsiadów była zero
  *  następnie w komórki tej tablicy wpisuje liczbę żywych sąsiadów komórki tablicy, która jest dana jako parametr
 */
 
-int** MainWindow::tablicaWszystkichSasiadow(int** tab, int N) {
-    int** tabSasiadow = get2d(N);
-    wypelnijZerami(tabSasiadow, N);
-    for (int i = 1; i < N + 1; i++) {
-        for (int j = 1; j < N + 1; j++) {
-            tabSasiadow[i - 1][j - 1] = licznikSasiadow(tab, i, j);
-        }
-    }
-    return tabSasiadow;
-}
+//int** MainWindow::tablicaWszystkichSasiadow(int** tab, int N) {
+//    int** tabSasiadow = get2d(N);
+//    wypelnijZerami(tabSasiadow, N);
+//    for (int i = 1; i < N + 1; i++) {
+//        for (int j = 1; j < N + 1; j++) {
+//            tabSasiadow[i - 1][j - 1] = licznikSasiadow(tab, i, j);
+//        }
+//    }
+//    return tabSasiadow;
+//}
 
 /** funkcja jako parametr bierze tablicę z zerami i jedynkami
  *  wkłada ją w ramkę z zerami
  *  potem w podwójnej pętli sprawdza liczbę sąsiadów danej komórki i na tej podstawie zamienia ją na zero albo jedynkę
 */
 
-void MainWindow::krok(int** tab, int N) {
-    int** tab1 = umiescWRamce(tab, N);
-    int** tabSasiadow = tablicaWszystkichSasiadow(tab1, N);
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            if (tabSasiadow[i][j] == 3 && tab[i][j] == 0) {
-                tab[i][j] = 1;
-            }
-            else if ((tabSasiadow[i][j] == 3 || tabSasiadow[i][j] == 2) && tab[i][j] == 1) {
-                tab[i][j] = 1;
-            }
-            else {
-                tab[i][j] = 0;
-            }
-        }
-    }
-    update();
-}
+//void MainWindow::krok(int** tab, int N) {
+//    int** tab1 = umiescWRamce(tab, N);
+//    int** tabSasiadow = tablicaWszystkichSasiadow(tab1, N);
+//    for (int i = 0; i < N; i++) {
+//        for (int j = 0; j < N; j++) {
+//            if (tabSasiadow[i][j] == 3 && tab[i][j] == 0) {
+//                tab[i][j] = 1;
+//            }
+//            else if ((tabSasiadow[i][j] == 3 || tabSasiadow[i][j] == 2) && tab[i][j] == 1) {
+//                tab[i][j] = 1;
+//            }
+//            else {
+//                tab[i][j] = 0;
+//            }
+//        }
+//    }
+//    update();
+//}
 
 /** funkcja bardzo podobna do funkcji krok
  *  pozbawiona parametrów, żeby lepiej działały connecty
@@ -356,11 +365,11 @@ void MainWindow::krok2() {
 /** funkcja, która służyła do tego, żeby nowy stan tablicy obliczał się ograniczoną liczbę razy
 */
 
-void MainWindow::run(int** tab, int N) {
-    for (int i = 0; i < 10; i++) {
-        krok(tab, N);
-    }
-}
+//void MainWindow::run(int** tab, int N) {
+//    for (int i = 0; i < 10; i++) {
+//        krok(tab, N);
+//    }
+//}
 
 /** funkcja, która kasuje dwuwymiarową tablicę dynamiczną
 */
@@ -413,16 +422,18 @@ void MainWindow::kasuj1d(int*& tab) {
 
 void MainWindow::paintEvent(QPaintEvent* event){
     QPainter painter(this); //painter to nazwa zmiennej; QPainter to klasa
-    for(int i=1; i<=N; i++){
-        for(int j=1; j<=N; j++){
+    for(int i=1; i<=rows; i++){
+        for(int j=1; j<=cols; j++){
             if(board->isCellAlive(i, j)){
                 //rysowanieKwadracikow(i, j);
                 painter.setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
-                painter.drawRect(QRect(20+20*i, 20+20*j, 20, 20));
+//                painter.drawRect(QRect(20+20*j, 20+20*i, 20, 20));
+                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
             }else{
                 //QPainter painter(this);
                 painter.setBrush(QBrush(Qt::white, Qt::BrushStyle::SolidPattern));
-                painter.drawRect(QRect(20+20*i, 20+20*j, 20, 20)); //x position //y position //lenght //width
+//                painter.drawRect(QRect(20+20*j, 20+20*i, 20, 20)); //x position //y position //lenght //width
+                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
             }
         }
     }
@@ -468,35 +479,35 @@ void MainWindow::mousePressEvent(QMouseEvent* event){
     //jak ustalić, na którym kwadraciku jest kursor:
     //pozycję kursora należy podzielić na szerokość kwadracika, a potem dodać 1
     //20 to długość boku kwadratu
-    int ktory_kwadracik_x = (x/20)-1;
-    int ktory_kwadracik_y = (y/20)-1;
-    board->toggleCell(ktory_kwadracik_x, ktory_kwadracik_y);
-    std::cout<<"x:"<<ktory_kwadracik_x <<" y:"<<ktory_kwadracik_y<<std::endl;
+    int ktory_kwadracik_col = (x/cellSide)+1;
+    int ktory_kwadracik_row = (y/cellSide)+1;
+    board->toggleCell(ktory_kwadracik_row, ktory_kwadracik_col);
+//    std::cout<<"x:"<<ktory_kwadracik_x <<" y:"<<ktory_kwadracik_y<<std::endl;
     update();
 }
 
 /** funkcja czyszcząca tablicę, żeby działał guzik "clear"
 */
 
-void MainWindow::czyszczenieTablicy(){
-    for(int i=0; i<N; i++){
-        for(int j=0; j<N; j++){
-            state[i][j] = 0;
-        }
-    }
-    update();
-}
+//void MainWindow::czyszczenieTablicy(){
+//    for(int i=0; i<N; i++){
+//        for(int j=0; j<N; j++){
+//            state[i][j] = 0;
+//        }
+//    }
+//    update();
+//}
 
 /** funkcja zapełniająca tablicę losowo zerami i jedynkami, żeby działał guzik "random"
 */
 
-void MainWindow::randomowanieTablicy() {
-    srand(time(0));
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            state[i][j] = rand() % (2);
-        }
-    }
-    update();
-}
+//void MainWindow::randomowanieTablicy() {
+//    srand(time(0));
+//    for (int i = 0; i < N; i++) {
+//        for (int j = 0; j < N; j++) {
+//            state[i][j] = rand() % (2);
+//        }
+//    }
+//    update();
+//}
 
