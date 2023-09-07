@@ -81,33 +81,15 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-//    int** get2d(int N);
-//    void wypelnij(int** tab, int N);
-//    void wypelnijZerami(int** tab, int N);
-//    int** umiescWRamce(int** tab, int N);
-//    int licznikSasiadowNeumann(int** tab, int i, int j);
-//    int licznikSasiadowMoore(int** tab, int i, int j);
-//    int licznikSasiadow(int** tab, int i, int j);
-//    int** tablicaWszystkichSasiadow(int** tab, int N);
-//    void run(int** tab, int N);
     void kasuj(int**& tab, int N);
     void kasuj1d(int*& tab);
     Board* board;
-
-    //testowanie
-//    void testujGet2d();
-//    void testujUmiescWRamce();
-//    void testujLicznikSasiadowNeumann();
-//    void testujLicznikSasiadowMoore();
-//    void testujTablicaWszystkichSasiadow();
-//    void testujKrok();
-//    void testujWszystko();
 
     //rysowanie prostokątów
     virtual void paintEvent(QPaintEvent* event);
     void mousePressEvent(QMouseEvent* event);
     void toggleCell(int ktory_kwadracik_x, int ktory_kwadracik_y);
-    //void rysowanieKwadracikow(int i, int j);
+    void gayMode(int i, int j, QPainter &painter);
 
 public slots:
 //    void krok(int** tab, int N);
@@ -118,12 +100,15 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    int** state;
+    int** state; // do wykasowania
 //    int N = 30; //NxN to rozmiar tablicy komórek
     int cellSide;
     int rows;
     int cols;
+    int screenWidth;
+    int screenHeight;
     QTimer* timer;
+    void keyPressEvent(QKeyEvent *event);
 };
 
 

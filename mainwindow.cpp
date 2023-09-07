@@ -178,8 +178,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     // ustawianie wielkości tablicy na podstawie wielkości ekranu
     QScreen *screen = QGuiApplication::primaryScreen();
-    int screenWidth = screen->size().width();
-    int screenHeight = screen->size().height();
+    screenWidth = screen->size().width();
+    screenHeight = screen->size().height();
     cellSide = 20;
 //    std::cout<<screenWidth<<" "<<screenHeight<<std::endl;
 //    state = get2d(N); //N zadeklarowane w .h
@@ -211,145 +211,42 @@ MainWindow::~MainWindow()
 /** funkcja tworzy dwuwymiarową dynamiczną tablicę
 */
 
-//int** MainWindow::get2d(int N) {
-//    int** tab = new int* [N];
-//    for (int i = 0; i < N; i++) {
-//        tab[i] = new int[N];
-//    }
-//    return tab;
-//}
-
 /** funkcja wypełnia dwuwymiarową tablicę losowo zerami i jedynkami
 */
-
-//void MainWindow::wypelnij(int** tab, int N) {
-//    srand(time(0));
-//    for (int i = 0; i < N; i++) {
-//        for (int j = 0; j < N; j++) {
-//            tab[i][j] = rand() % (2);
-//        }
-//    }
-//}
 
 /** funkcja wypełnia dwuwymiarową tablicę zerami
  *  ta funkcja jest potrzebna, żeby w funkcji umiescWRamce zapełnić zerami ramkę
 */
-
-//void MainWindow::wypelnijZerami(int** tab, int N) {
-//    for (int i = 0; i < N; i++) {
-//        for (int j = 0; j < N; j++) {
-//            tab[i][j] = 0;
-//        }
-//    }
-//}
 
 /** funkcja tworzy tablicę o dwa większą od tablicy danej jako parametr funkcji
  *  potem zapełnia ją zerami
  *  potem w środek tej tablicy wkłada tablicę daną jako paramter funkcji
 */
 
-//int** MainWindow::umiescWRamce(int** tab, int N) {
-//    int** ramka = get2d(N + 2);
-//    wypelnijZerami(ramka, N + 2);
-//    for (int i = 0; i < N; i++) {
-//        for (int j = 0; j < N; j++) {
-//            ramka[i + 1][j + 1] = tab[i][j];
-//        }
-//    }
-//    return ramka;
-//}
-
 /** funkcja oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Neumanna
  *  sąsiedztwo Neumanna to cztery komórki, które graniczą z centralną komórką krawędziami
 */
-
-//int MainWindow::licznikSasiadowNeumann(int** tab, int i, int j) {
-//    int licznik = 0;
-//    if (tab[i - 1][j] == 1) {
-//        licznik++;
-//    }
-//    if (tab[i][j + 1] == 1) {
-//        licznik++;
-//    }
-//    if (tab[i + 1][j] == 1) {
-//        licznik++;
-//    }
-//    if (tab[i][j - 1] == 1) {
-//        licznik++;
-//    }
-//    return licznik;
-//}
 
 /** funkcja oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Moore'a
  *  sąsiedztwo Moore'a to osiem komórek, które graniczą z centralną komórką krawędziami i wierzchołkami
  *  rozpatruję tylko te, które graniczą wierzchołkami, żeby potem dodać to do funkcji licznikSasiadowNeumann
 */
 
-//int MainWindow::licznikSasiadowMoore(int** tab, int i, int j) {
-//    int licznik = 0;
-//    if (tab[i - 1][j - 1] == 1) {
-//        licznik++;
-//    }
-//    if (tab[i - 1][j + 1] == 1) {
-//        licznik++;
-//    }
-//    if (tab[i + 1][j + 1] == 1) {
-//        licznik++;
-//    }
-//    if (tab[i + 1][j - 1] == 1) {
-//        licznik++;
-//    }
-//    return licznik;
-//}
-
 /** funkcja dodaje tylko wartości obliczone w dwóch poprzednich funkcjach
 */
 
-//int MainWindow::licznikSasiadow(int** tab, int i, int j) {
-//    int licznik = 0;
-//    licznik = licznikSasiadowMoore(tab, i, j) + licznikSasiadowNeumann(tab, i, j);
-//    return licznik;
-//}
 
 /** funkcja tworzy dwuwymiarową tablicę sąsiadów
  *  na początku zapełnia ją zerami, żeby domyślnie liczba sąsiadów była zero
  *  następnie w komórki tej tablicy wpisuje liczbę żywych sąsiadów komórki tablicy, która jest dana jako parametr
 */
 
-//int** MainWindow::tablicaWszystkichSasiadow(int** tab, int N) {
-//    int** tabSasiadow = get2d(N);
-//    wypelnijZerami(tabSasiadow, N);
-//    for (int i = 1; i < N + 1; i++) {
-//        for (int j = 1; j < N + 1; j++) {
-//            tabSasiadow[i - 1][j - 1] = licznikSasiadow(tab, i, j);
-//        }
-//    }
-//    return tabSasiadow;
-//}
 
 /** funkcja jako parametr bierze tablicę z zerami i jedynkami
  *  wkłada ją w ramkę z zerami
  *  potem w podwójnej pętli sprawdza liczbę sąsiadów danej komórki i na tej podstawie zamienia ją na zero albo jedynkę
 */
 
-//void MainWindow::krok(int** tab, int N) {
-//    int** tab1 = umiescWRamce(tab, N);
-//    int** tabSasiadow = tablicaWszystkichSasiadow(tab1, N);
-//    for (int i = 0; i < N; i++) {
-//        for (int j = 0; j < N; j++) {
-//            if (tabSasiadow[i][j] == 3 && tab[i][j] == 0) {
-//                tab[i][j] = 1;
-//            }
-//            else if ((tabSasiadow[i][j] == 3 || tabSasiadow[i][j] == 2) && tab[i][j] == 1) {
-//                tab[i][j] = 1;
-//            }
-//            else {
-//                tab[i][j] = 0;
-//            }
-//        }
-//    }
-//    update();
-//}
 
 /** funkcja bardzo podobna do funkcji krok
  *  pozbawiona parametrów, żeby lepiej działały connecty
@@ -365,11 +262,6 @@ void MainWindow::krok2() {
 /** funkcja, która służyła do tego, żeby nowy stan tablicy obliczał się ograniczoną liczbę razy
 */
 
-//void MainWindow::run(int** tab, int N) {
-//    for (int i = 0; i < 10; i++) {
-//        krok(tab, N);
-//    }
-//}
 
 /** funkcja, która kasuje dwuwymiarową tablicę dynamiczną
 */
@@ -420,15 +312,25 @@ void MainWindow::kasuj1d(int*& tab) {
 //    }
 //}
 
+void MainWindow::gayMode(int i, int j, QPainter &painter){
+//    QPainter painter(this);
+    if(j>=0 && j<screenWidth/2/cellSide){
+        painter.setBrush(QBrush(Qt::red, Qt::BrushStyle::SolidPattern));
+        painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
+    }else{
+        painter.setBrush(QBrush(Qt::blue, Qt::BrushStyle::SolidPattern));
+        painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
+    }
+}
+
 void MainWindow::paintEvent(QPaintEvent* event){
     QPainter painter(this); //painter to nazwa zmiennej; QPainter to klasa
     for(int i=1; i<=rows; i++){
         for(int j=1; j<=cols; j++){
             if(board->isCellAlive(i, j)){
-                //rysowanieKwadracikow(i, j);
-                painter.setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
-//                painter.drawRect(QRect(20+20*j, 20+20*i, 20, 20));
-                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
+//                painter.setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
+//                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
+                gayMode(i, j, painter);
             }else{
                 //QPainter painter(this);
                 painter.setBrush(QBrush(Qt::white, Qt::BrushStyle::SolidPattern));
@@ -445,27 +347,9 @@ void MainWindow::paintEvent(QPaintEvent* event){
  *  jeśli program akurat nie działa, ustawia interwał na 100 i odpala program, a tekst zamienia na stop
 */
 
-//void MainWindow::toggleStart(){
-//    if(timer->isActive()){
-//        timer->stop();
-//        ui->pushButton->setText("Start");
-//    }else{
-//        timer->setInterval(100); //ustawiam taki sam interwał jak w metodzie MainWindow(czyli co 100 ma się wykonać krok2)
-//        timer->start();
-//        ui->pushButton->setText("Stop");
-//    }
-//}
-
 /** funkcja sprawia, że kwadracik zmienia kolor przy kliknięciu
 */
 
-//void MainWindow::toggleCell(int ktory_kwadracik_x, int ktory_kwadracik_y){
-//    if(state[ktory_kwadracik_x][ktory_kwadracik_y]==1){
-//        state[ktory_kwadracik_x][ktory_kwadracik_y] = 0;
-//    }else{
-//        state[ktory_kwadracik_x][ktory_kwadracik_y] = 1;
-//    }
-//}
 
 /** nadpisana funkcja z QWidget
 *  w zmiennych x i y przechowuje współrzędne kliknięcia
@@ -486,28 +370,19 @@ void MainWindow::mousePressEvent(QMouseEvent* event){
     update();
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *event) {
+    if (event->key() == Qt::Key_Space) {
+        // Close the application when the space key is pressed
+        QApplication::quit();
+    }
+}
+
 /** funkcja czyszcząca tablicę, żeby działał guzik "clear"
 */
 
-//void MainWindow::czyszczenieTablicy(){
-//    for(int i=0; i<N; i++){
-//        for(int j=0; j<N; j++){
-//            state[i][j] = 0;
-//        }
-//    }
-//    update();
-//}
 
 /** funkcja zapełniająca tablicę losowo zerami i jedynkami, żeby działał guzik "random"
 */
 
-//void MainWindow::randomowanieTablicy() {
-//    srand(time(0));
-//    for (int i = 0; i < N; i++) {
-//        for (int j = 0; j < N; j++) {
-//            state[i][j] = rand() % (2);
-//        }
-//    }
-//    update();
-//}
+
 
