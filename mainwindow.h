@@ -111,6 +111,24 @@ private:
     void keyPressEvent(QKeyEvent *event);
 };
 
+class CellPainter {
+protected:
+    QPainter* painter;
+    int cellSide;
+
+public:
+    CellPainter(QPainter &painter, int cellSide);
+    virtual void drawAliveCell(int i, int j);
+    virtual void drawDeadCell(int i, int j);
+};
+
+class BlackAndWhiteSquares : public CellPainter {
+    void drawAliveCell(int i, int j) override;
+    void drawDeadCell(int i, int j) override;
+};
+
+
+
 
 
 #endif // MAINWINDOW_H

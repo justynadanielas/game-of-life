@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 #include <QColor>
 #include <QScreen>
+#include "cellPainter.cpp"
 //#include "Point.h"
 
 // Constructor implementation
@@ -328,13 +329,12 @@ void MainWindow::paintEvent(QPaintEvent* event){
     for(int i=1; i<=rows; i++){
         for(int j=1; j<=cols; j++){
             if(board->isCellAlive(i, j)){
-//                painter.setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
-//                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
-                gayMode(i, j, painter);
+                painter.setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
+                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
+//                gayMode(i, j, painter);
             }else{
                 //QPainter painter(this);
                 painter.setBrush(QBrush(Qt::white, Qt::BrushStyle::SolidPattern));
-//                painter.drawRect(QRect(20+20*j, 20+20*i, 20, 20)); //x position //y position //lenght //width
                 painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
             }
         }
