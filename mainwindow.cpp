@@ -191,7 +191,8 @@ MainWindow::MainWindow(QWidget *parent)
     board->putRandomValues();
 //    std::cout<<"dupa4"<<std::endl;
 //    wypelnij(state, N);
-    blackAndWhiteSquaresPainter = new BlackAndWhiteSquares(painter, cellSide); //ten painter nie jest nigdzie wyżej tworzony, bo jest brany z headera
+    cellPainter = new GaySquares(painter, cellSide, screenWidth); //ten painter nie jest nigdzie wyżej tworzony, bo jest brany z headera
+//    gayPainter = new GaySquares(painter, cellSide, screenWidth);
     timer = new QTimer;
     timer->setInterval(100);
     connect(timer, SIGNAL(timeout()), this, SLOT(krok2())); //(odmierza interwały, w których wykonuje się krok)
@@ -332,12 +333,13 @@ void MainWindow::paintEvent(QPaintEvent* event){
             if(board->isCellAlive(i, j)){
 //                painter.setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
 //                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
-                blackAndWhiteSquaresPainter->drawAliveCell(i, j);
+                cellPainter->drawAliveCell(i, j);
+//                gayPainter->drawAliveCell(i, j);
             }else{
                 //QPainter painter(this);
 //                painter.setBrush(QBrush(Qt::white, Qt::BrushStyle::SolidPattern));
 //                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
-                blackAndWhiteSquaresPainter->drawDeadCell(i, j);
+                cellPainter->drawDeadCell(i, j);
             }
         }
     }

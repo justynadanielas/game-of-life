@@ -77,16 +77,24 @@ class CellPainter {
 protected:
     QPainter* painter;
     int cellSide;
+    int screenWidth;
 
 public:
-    CellPainter(QPainter &painter, int cellSide);
+    CellPainter(QPainter &painter, int cellSide, int screenWidth);
     virtual void drawAliveCell(int i, int j);
     virtual void drawDeadCell(int i, int j);
 };
 
 class BlackAndWhiteSquares : public CellPainter {
 public:
-    BlackAndWhiteSquares(QPainter &painter, int cellSide);
+    BlackAndWhiteSquares(QPainter &painter, int cellSide, int screenWidth);
+    void drawAliveCell(int i, int j) override;
+    void drawDeadCell(int i, int j) override;
+};
+
+class GaySquares : public CellPainter {
+public:
+    GaySquares(QPainter &painter, int cellSide, int screenWidth);
     void drawAliveCell(int i, int j) override;
     void drawDeadCell(int i, int j) override;
 };
@@ -128,7 +136,8 @@ private:
     int screenHeight;
     QTimer* timer;
     QPainter painter; //chyba deklaracja razem z inicjacją?? wyjątkowo
-    CellPainter* blackAndWhiteSquaresPainter;
+    CellPainter* cellPainter;
+    // CellPainter* gayPainter;
     void keyPressEvent(QKeyEvent *event);
 };
 
