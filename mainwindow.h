@@ -85,6 +85,8 @@ public:
 };
 
 class BlackAndWhiteSquares : public CellPainter {
+public:
+    BlackAndWhiteSquares(QPainter &painter, int cellSide);
     void drawAliveCell(int i, int j) override;
     void drawDeadCell(int i, int j) override;
 };
@@ -125,6 +127,8 @@ private:
     int screenWidth;
     int screenHeight;
     QTimer* timer;
+    QPainter painter; //chyba deklaracja razem z inicjacją?? wyjątkowo
+    CellPainter* blackAndWhiteSquaresPainter;
     void keyPressEvent(QKeyEvent *event);
 };
 

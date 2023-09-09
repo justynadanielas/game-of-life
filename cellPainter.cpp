@@ -13,6 +13,8 @@ void CellPainter::drawDeadCell(int i, int j){
 
 }
 
+BlackAndWhiteSquares::BlackAndWhiteSquares(QPainter &painter, int cellSide) : CellPainter(painter, cellSide) {}
+
 void BlackAndWhiteSquares::drawAliveCell(int i, int j){
     painter->setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
     painter->drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));

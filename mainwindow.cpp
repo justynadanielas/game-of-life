@@ -191,6 +191,7 @@ MainWindow::MainWindow(QWidget *parent)
     board->putRandomValues();
 //    std::cout<<"dupa4"<<std::endl;
 //    wypelnij(state, N);
+    blackAndWhiteSquaresPainter = new BlackAndWhiteSquares(painter, cellSide); //ten painter nie jest nigdzie wyżej tworzony, bo jest brany z headera
     timer = new QTimer;
     timer->setInterval(100);
     connect(timer, SIGNAL(timeout()), this, SLOT(krok2())); //(odmierza interwały, w których wykonuje się krok)
@@ -325,20 +326,22 @@ void MainWindow::gayMode(int i, int j, QPainter &painter){
 }
 
 void MainWindow::paintEvent(QPaintEvent* event){
-    QPainter painter(this); //painter to nazwa zmiennej; QPainter to klasa
+    painter.begin(this); //painter to nazwa zmiennej; QPainter to klasa
     for(int i=1; i<=rows; i++){
         for(int j=1; j<=cols; j++){
             if(board->isCellAlive(i, j)){
-                painter.setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
-                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
-//                gayMode(i, j, painter);
+//                painter.setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
+//                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
+                blackAndWhiteSquaresPainter->drawAliveCell(i, j);
             }else{
                 //QPainter painter(this);
-                painter.setBrush(QBrush(Qt::white, Qt::BrushStyle::SolidPattern));
-                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
+//                painter.setBrush(QBrush(Qt::white, Qt::BrushStyle::SolidPattern));
+//                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
+                blackAndWhiteSquaresPainter->drawDeadCell(i, j);
             }
         }
     }
+    painter.end();
 }
 
 /** funkcja do guzika start
