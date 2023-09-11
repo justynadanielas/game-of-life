@@ -11,87 +11,130 @@
 //#include "Point.h"
 
 // Constructor implementation
+/** Klasa Point
+ *  Przechowuje współrzędne x i y punktu
+*/
+
+/** Konstruktor Point
+ *  Ma parametry współrzędne x i y
+*/
 Point::Point(int x, int y) : x(x), y(y) {}
 
-// Getter for x
+/** Getter dla x
+*/
 int Point::getX() {
     return x;
 }
 
-// Setter for x
+/** Setter dla x
+*/
 void Point::setX(int x) {
     this->x = x;
 }
 
-// Getter for y
+/** Getter dla y
+*/
 int Point::getY() {
     return y;
 }
 
-// Setter for y
+/** Setter dla y
+*/
 void Point::setY(int y) {
     this->y = y;
 }
 
+/** Klasa Cell
+ *  Dziedziczy po klasie Point
+ *  Definiuje komórkę, podstawowy element gry w życie
+*/
 
+/** Konstruktor Cell
+ *  Parametry: indeks wiersza, indeks kolumny, informacja o stanie komórki (żywa czy martwa)
+ *  indeksowi wiersza odpowiada współrzędna y obiektu typu Point
+ *  indeksowi kolumny odpowiada współrzędna x obiektu typu Point
+ *  Pola: liczba sąsiadów, przechowujące liczbę żywych sąsiadów danej komórki
+*/
+// czy dobrze rozumiem rozróżnienie na pola/atrybuty i parametry?
 Cell::Cell(int row_num, int col_num, bool alive) : Point(col_num, row_num), alive(alive) {
     numOfNeighbors = 0;
 }
 
+/** Getter dla stanu komórki
+*/
 bool Cell::isAlive() {
     return alive;
 }
 
+/** Setter dla stanu komórki
+*/
 void Cell::setAlive(bool alive) {
     this->alive = alive;
 }
 
+/** Getter dla liczby sąsiadów komórki
+*/
 int Cell::getNumOfNeighbors() {
     return numOfNeighbors;
 }
 
+/** Setter dla liczby sąsiadów komórki
+*/
 void Cell::setNumOfNeighbors(int numOfNeighbors) {
     this->numOfNeighbors = numOfNeighbors;
 }
 
-// Constructor for the Board class
+/** Klasa Board
+ *  Definiuje planszę, na której toczy się gra w życie
+*/
+
+/** Konstruktor Board
+ *  Parametry: liczba wierszy, liczba kolumn
+ *  Pola: wiersze z ramką; kolumny z ramką;
+ *  (ramka umożliwia obliczenie liczby sąsiadów dla komórek na obrzeżach planszy)
+ *  "cells" to dwuwymiarowa dynamiczna tablica komórek
+*/
 Board::Board(int rows, int cols) {
     this->rows = rows;
     this->cols = cols;
     rowsWithFrame = rows + 2;
     colsWithFrame = cols + 2;
 
-    // Create a 2D array of Cell objects
-//    std::cout<<"dupa"<<std::endl;
+    // ?
+    // najpierw powstaje lista wskaźników do wskaźników (uff)
     cells = new Cell**[rowsWithFrame];
     for (int i = 0; i < rowsWithFrame; i++) {
+        // na kolejnych indeksach tej listy są umieszczane listy wskaźników do komórek
         cells[i] = new Cell*[colsWithFrame];
         for (int j = 0; j < colsWithFrame; j++) {
+            // w miejsca na liście wskaźników do komórek wskakują komórki
             cells[i][j] = new Cell(i, j, false);
-//            std::cout<<"created cell: x = " << i << " i y = " << j << std::endl;
         }
     }
-//    std::cout<<"dupa2"<<std::endl;
 }
 
-// Method to set the state of a cell at position (x, y)
+/** Setter dla stanu komórki o danych indeksach na planszy
+*/
 void Board::setCellAlive(int i, int j, bool alive) {
-    // Check if the given coordinates are within bounds
+    // uwaga, indeksowanie zaczyna się od jeden i kończy na rows/cols ze względu na ramkę!
     if (i >= 1 && i <= rows && j >= 1 && j <= cols) {
+        // ? o co chodzi z ostrzeżeniem w linijce poniżej?
         cells[i][j]->setAlive(alive);
-//        std::cout<< "Udalo sie ustawic dla x = " << x << " i y = " << y << std::endl;
     } else {
         std::cerr << "Error: Coordinates out of bounds, x = " << i << ", y = " << j << std::endl;
     }
 }
 
+/** Getter dla stanu komórki o danych indeksach na planszy
+*/
 bool Board::isCellAlive(int i, int j) {
     return cells[i][j]->isAlive();
 }
 
+/** Metoda zapełniająca planszę losowo żywymi i martwymi komórkami
+*/
 void Board::putRandomValues() {
     srand(time(0));
-    // chcę, żeby tablica miała ramkę z zer, więc zaczynam indeksowanie od 1 i kończę na cols+1 (lub rows+1)
     for (int i = 1; i <= rows; i++) {
         for (int j = 1; j <= cols; j++) {
             setCellAlive(i, j, rand() % 2);
@@ -99,6 +142,9 @@ void Board::putRandomValues() {
     }
 }
 
+/** Metoda oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Neumanna
+ *  sąsiedztwo Neumanna to cztery komórki, które graniczą z centralną komórką krawędziami
+*/
 int Board::neumannNeighborCounter(int i, int j) {
     int counter = 0;
     if (cells[i - 1][j]->isAlive()) {
@@ -115,6 +161,10 @@ int Board::neumannNeighborCounter(int i, int j) {
     }
     return counter;
 }
+
+/** Metoda oblicza, ile dana komórka ma żywych sąsiadów wśród komórek,
+ *  które graniczą z nią wierzchołkami
+*/
 
 int Board::diagonalNeighborCounter(int i, int j) {
     int counter = 0;
@@ -133,9 +183,17 @@ int Board::diagonalNeighborCounter(int i, int j) {
     return counter;
 }
 
+/** Metoda oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Moore'a
+ *  sąsiedztwo Moore'a to osiem komórek, które graniczą z centralną komórką krawędziami i wierzchołkami
+*/
+
 int Board::mooreNeighborCounter(int i, int j) {
     return neumannNeighborCounter(i, j) + diagonalNeighborCounter(i, j);
 }
+
+/** Metoda przechodzi po tablicy komórek
+ *  i dla każdej komórki ustawia jej liczbę sąsiadów
+*/
 
 void Board::countNeighborsForEachCell() {
     for (int i = 1; i <= rows; i++) {
@@ -145,11 +203,14 @@ void Board::countNeighborsForEachCell() {
     }
 }
 
+/** Metoda najpierw wywołuje countNeighborsForEachCell
+ *  potem na podstawie warunków zdefiniowanych przez Conwaya
+ *  ustawia, które komórki będą żywe w następnej turze
+*/
 void Board::step() {
     this->countNeighborsForEachCell();
     for (int i = 1; i <= rows; i++) {
         for (int j = 1; j <= cols; j++) {
-//            std::cout<<cells[i][j]->getNumOfNeighbors()<<std::endl;
             if (cells[i][j]->getNumOfNeighbors() == 3 && !cells[i][j]->isAlive()) {
                 cells[i][j]->setAlive(true);
             }
@@ -163,6 +224,8 @@ void Board::step() {
     }
 }
 
+/** Metoda do przełączania stanu komórek w czasie trwania gry
+*/
 void Board::toggleCell(int i, int j){
     if(cells[i][j]->isAlive()){
         cells[i][j]->setAlive(0);
@@ -171,6 +234,18 @@ void Board::toggleCell(int i, int j){
     }
 }
 
+
+/** Klasa MainWindow
+ *  Definiuje co dzieje się w okienku
+*/
+
+// ?
+/** Konstruktor MainWindow
+ *  Dziedziczy po QMainWindow
+ *  Parametr to QWidget??
+ *  To coś po przecinku to nie wiem
+ *  Pola:
+*/
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -181,74 +256,34 @@ MainWindow::MainWindow(QWidget *parent)
     QScreen *screen = QGuiApplication::primaryScreen();
     screenWidth = screen->size().width();
     screenHeight = screen->size().height();
+    // przypisywanie wartości do zmiennej zainicjowanej w headerze
     cellSide = 20;
-//    std::cout<<screenWidth<<" "<<screenHeight<<std::endl;
-//    state = get2d(N); //N zadeklarowane w .h
+    // to się przyda! do wykorzystania w klasie cellPainter?
     rows = screenHeight/cellSide;
     cols = screenWidth/cellSide;
+    // tworzenie planszy i zapełnianie jej losowo
     board = new Board(rows, cols);
-//    std::cout<<"dupa3"<<std::endl;
     board->putRandomValues();
-//    std::cout<<"dupa4"<<std::endl;
-//    wypelnij(state, N);
-    cellPainter = new GaySquares(painter, cellSide, screenWidth); //ten painter nie jest nigdzie wyżej tworzony, bo jest brany z headera
-//    gayPainter = new GaySquares(painter, cellSide, screenWidth);
+    // tworzenie paintera
+    cellPainter = new BlackAndWhiteSquares(painter, cellSide, screenWidth);
+    // tworzenie timera i ustawianie częstości odświeżania planszy
     timer = new QTimer;
     timer->setInterval(100);
     connect(timer, SIGNAL(timeout()), this, SLOT(krok2())); //(odmierza interwały, w których wykonuje się krok)
-    //timer->start(); //timer start uruchamia caly program (teraz jest w funkcji toggle start)
-//    connect(ui->pushButton, SIGNAL(clicked(bool)), this, SLOT(toggleStart()));//pierwszy argument to to co wywołuje funkcję;
+    //    connect(ui->pushButton, SIGNAL(clicked(bool)), this, SLOT(toggleStart()));//pierwszy argument to to co wywołuje funkcję;
                                                          //po przecinku to co się ma dziać z guzikiem;
                                                          //to co ma przyjmować ten sygnał (main window)
                                                          //to jaka funkcja ma się wywołać
+    // timer->start rozpoczyna program
     timer->start();
-//    connect(ui->pushButton_2, SIGNAL(clicked(bool)), this, SLOT(czyszczenieTablicy()));
-//    connect(ui->pushButton_3, SIGNAL(clicked(bool)), this, SLOT(randomowanieTablicy()));
 }
 
+/** Dekonstruktor MainWindow
+*/
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-/** funkcja tworzy dwuwymiarową dynamiczną tablicę
-*/
-
-/** funkcja wypełnia dwuwymiarową tablicę losowo zerami i jedynkami
-*/
-
-/** funkcja wypełnia dwuwymiarową tablicę zerami
- *  ta funkcja jest potrzebna, żeby w funkcji umiescWRamce zapełnić zerami ramkę
-*/
-
-/** funkcja tworzy tablicę o dwa większą od tablicy danej jako parametr funkcji
- *  potem zapełnia ją zerami
- *  potem w środek tej tablicy wkłada tablicę daną jako paramter funkcji
-*/
-
-/** funkcja oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Neumanna
- *  sąsiedztwo Neumanna to cztery komórki, które graniczą z centralną komórką krawędziami
-*/
-
-/** funkcja oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Moore'a
- *  sąsiedztwo Moore'a to osiem komórek, które graniczą z centralną komórką krawędziami i wierzchołkami
- *  rozpatruję tylko te, które graniczą wierzchołkami, żeby potem dodać to do funkcji licznikSasiadowNeumann
-*/
-
-/** funkcja dodaje tylko wartości obliczone w dwóch poprzednich funkcjach
-*/
-
-
-/** funkcja tworzy dwuwymiarową tablicę sąsiadów
- *  na początku zapełnia ją zerami, żeby domyślnie liczba sąsiadów była zero
- *  następnie w komórki tej tablicy wpisuje liczbę żywych sąsiadów komórki tablicy, która jest dana jako parametr
-*/
-
-
-/** funkcja jako parametr bierze tablicę z zerami i jedynkami
- *  wkłada ją w ramkę z zerami
- *  potem w podwójnej pętli sprawdza liczbę sąsiadów danej komórki i na tej podstawie zamienia ją na zero albo jedynkę
-*/
 
 
 /** funkcja bardzo podobna do funkcji krok
