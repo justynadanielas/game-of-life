@@ -10,7 +10,7 @@
 #include "cellPainter.cpp"
 //#include "Point.h"
 
-// Constructor implementation
+
 /** Klasa Point
  *  Przechowuje współrzędne x i y punktu
 */
@@ -101,7 +101,7 @@ Board::Board(int rows, int cols) {
     colsWithFrame = cols + 2;
 
     // ?
-    // najpierw powstaje lista wskaźników do wskaźników (uff)
+    // najpierw powstaje jednowymiarowa tablica wskaźników
     cells = new Cell**[rowsWithFrame];
     for (int i = 0; i < rowsWithFrame; i++) {
         // na kolejnych indeksach tej listy są umieszczane listy wskaźników do komórek
@@ -324,42 +324,6 @@ void MainWindow::kasuj1d(int*& tab) {
  *  jeśli komórka jest 1, rysuje czarny kwadracik
  *  jeśli komórka jest 0, rysuje biały kwadracik
 */
-
-// funkcja do gaymode
-
-//void MainWindow::rysowanieKwadracikow(int i, int j){
-//    QPainter p(this);
-//    if(j>=0 && j<4){
-//        p.setBrush(QBrush(Qt::red, Qt::BrushStyle::SolidPattern));
-//        p.drawRect(QRect(20+20*i, 20+20*j, 20, 20));
-//    }else if(j>=4 && j<8){
-//        p.setBrush(QBrush(QColor::fromRgb(255, 165, 0), Qt::BrushStyle::SolidPattern));
-//        p.drawRect(QRect(20+20*i, 20+20*j, 20, 20));
-//    }else if(j>=8 && j<12){
-//        p.setBrush(QBrush(Qt::yellow, Qt::BrushStyle::SolidPattern));
-//        p.drawRect(QRect(20+20*i, 20+20*j, 20, 20));
-//    }else if(j>=12 && j<16){
-//        p.setBrush(QBrush(Qt::green, Qt::BrushStyle::SolidPattern));
-//        p.drawRect(QRect(20+20*i, 20+20*j, 20, 20));
-//    }else if(j>=16 && j<20){
-//        p.setBrush(QBrush(Qt::blue, Qt::BrushStyle::SolidPattern));
-//        p.drawRect(QRect(20+20*i, 20+20*j, 20, 20));
-//    }else if(j>=20 && j<24){
-//        p.setBrush(QBrush(QColor::fromRgb(160, 8, 211), Qt::BrushStyle::SolidPattern));
-//        p.drawRect(QRect(20+20*i, 20+20*j, 20, 20));
-//    }
-//}
-
-void MainWindow::gayMode(int i, int j, QPainter &painter){
-//    QPainter painter(this);
-    if(j>=0 && j<screenWidth/2/cellSide){
-        painter.setBrush(QBrush(Qt::red, Qt::BrushStyle::SolidPattern));
-        painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
-    }else{
-        painter.setBrush(QBrush(Qt::blue, Qt::BrushStyle::SolidPattern));
-        painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
-    }
-}
 
 void MainWindow::paintEvent(QPaintEvent* event){
     painter.begin(this); //painter to nazwa zmiennej; QPainter to klasa
