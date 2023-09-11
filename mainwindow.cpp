@@ -269,7 +269,7 @@ MainWindow::MainWindow(QWidget *parent)
     // tworzenie timera i ustawianie częstości odświeżania planszy
     timer = new QTimer;
     timer->setInterval(100);
-    connect(timer, SIGNAL(timeout()), this, SLOT(krok2())); //(odmierza interwały, w których wykonuje się krok)
+    connect(timer, SIGNAL(timeout()), this, SLOT(windowStep())); //(odmierza interwały, w których wykonuje się krok)
     //    connect(ui->pushButton, SIGNAL(clicked(bool)), this, SLOT(toggleStart()));//pierwszy argument to to co wywołuje funkcję;
                                                          //po przecinku to co się ma dziać z guzikiem;
                                                          //to co ma przyjmować ten sygnał (main window)
@@ -286,58 +286,29 @@ MainWindow::~MainWindow()
 }
 
 
-/** funkcja bardzo podobna do funkcji krok
- *  pozbawiona parametrów, żeby lepiej działały connecty
- *  state to tablica dwuwymiarowa zadeklarowana w zmiennych globalnych
- *  zapełniona losowo zerami i jedynkami za pomocą funkcji wypełnij
+/** Metoda, w której wykonuje się "step"
+ *  następnie odświeża się okno aplikacji (metoda "update")
 */
 
-void MainWindow::krok2() {
+void MainWindow::windowStep() {
     board->step();
-    update(); //służy do tego, żeby okno rysowało się dwa razy
+    update();
 }
 
-/** funkcja, która służyła do tego, żeby nowy stan tablicy obliczał się ograniczoną liczbę razy
-*/
-
-
-/** funkcja, która kasuje dwuwymiarową tablicę dynamiczną
-*/
-
-void MainWindow::kasuj(int**& tab, int N) {
-    for (int i = 0; i < N; i++) {
-        delete[] tab[i];
-    }
-    delete[]tab;
-    tab = NULL;
-}
-
-/** funkcja, która kasuje jednowymiarową tablicę dynamiczną
-*/
-
-void MainWindow::kasuj1d(int*& tab) {
-    delete[]tab;
-    tab = NULL;
-}
-
-/** nadpisana funkcja z QWidget
- *  jeśli komórka jest 1, rysuje czarny kwadracik
- *  jeśli komórka jest 0, rysuje biały kwadracik
+/** Metoda służy do rysowania w aplikacji kwadratów reprezentujących komórki
+ *  QPainter painter jest deklarowany w headerze
+ *  tak samo cellPainter
+ *  cellPainter jest zainicjowany jako wskaźnik do obiektu klasy BlackAndWhiteSquares w konstruktorze MainWindow
+ *  Później dzięki metodzie keyPressEvent można go zmieniać, by wskazywał na GaySquares
 */
 
 void MainWindow::paintEvent(QPaintEvent* event){
-    painter.begin(this); //painter to nazwa zmiennej; QPainter to klasa
+    painter.begin(this);
     for(int i=1; i<=rows; i++){
         for(int j=1; j<=cols; j++){
             if(board->isCellAlive(i, j)){
-//                painter.setBrush(QBrush(Qt::black, Qt::BrushStyle::SolidPattern));
-//                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
                 cellPainter->drawAliveCell(i, j);
-//                gayPainter->drawAliveCell(i, j);
             }else{
-                //QPainter painter(this);
-//                painter.setBrush(QBrush(Qt::white, Qt::BrushStyle::SolidPattern));
-//                painter.drawRect(QRect(cellSide*j-cellSide, cellSide*i-cellSide, cellSide, cellSide));
                 cellPainter->drawDeadCell(i, j);
             }
         }
@@ -345,17 +316,7 @@ void MainWindow::paintEvent(QPaintEvent* event){
     painter.end();
 }
 
-/** funkcja do guzika start
- *  uruchamia się po naciśnięciu guzika start/stop
- *  jeśli program jest w trakcie działania, naciśnięcie guzika zatrzymuje program i zamienia tekst na start
- *  jeśli program akurat nie działa, ustawia interwał na 100 i odpala program, a tekst zamienia na stop
-*/
-
-/** funkcja sprawia, że kwadracik zmienia kolor przy kliknięciu
-*/
-
-
-/** nadpisana funkcja z QWidget
+/** Metoda służy do tego, by kliknięcie zmieniało kolor komórki
 *  w zmiennych x i y przechowuje współrzędne kliknięcia
 *  potem współrzędne kliknięcia przetłumacza na indeks komórki
 *  za pomocą funkcji toggleCell zmienia kolor komórki
@@ -378,6 +339,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Space) {
         // Close the application when the space key is pressed
         QApplication::quit();
+    }
+    if (event->key() == Qt::Key_G)
+    {
+        delete cellPainter;
+        cellPainter = new GaySquares(painter, cellSide, screenWidth);
+    }
+    if (event->key() == Qt::Key_S)
+    {
+        delete cellPainter;
+        cellPainter = new BlackAndWhiteSquares(painter, cellSide, screenWidth);
     }
 }
 

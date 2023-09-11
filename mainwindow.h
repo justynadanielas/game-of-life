@@ -119,16 +119,10 @@ public:
     void gayMode(int i, int j, QPainter &painter);
 
 public slots:
-//    void krok(int** tab, int N);
-    void krok2();
-//    void toggleStart();
-//    void czyszczenieTablicy();
-//    void randomowanieTablicy();
+    void windowStep();
 
 private:
     Ui::MainWindow *ui;
-    int** state; // do wykasowania
-//    int N = 30; //NxN to rozmiar tablicy komórek
     int cellSide;
     int rows;
     int cols;
@@ -137,7 +131,6 @@ private:
     QTimer* timer;
     QPainter painter; //chyba deklaracja razem z inicjacją?? wyjątkowo
     CellPainter* cellPainter;
-    // CellPainter* gayPainter;
     void keyPressEvent(QKeyEvent *event);
 };
 
