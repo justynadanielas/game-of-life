@@ -8,7 +8,6 @@
 #include <QColor>
 #include <QScreen>
 #include "cellPainter.cpp"
-//#include "Point.h"
 
 
 /** Klasa Point
@@ -55,7 +54,6 @@ void Point::setY(int y) {
  *  indeksowi kolumny odpowiada współrzędna x obiektu typu Point
  *  Pola: liczba sąsiadów, przechowujące liczbę żywych sąsiadów danej komórki
 */
-// czy dobrze rozumiem rozróżnienie na pola/atrybuty i parametry?
 Cell::Cell(int row_num, int col_num, bool alive) : Point(col_num, row_num), alive(alive) {
     numOfNeighbors = 0;
 }
@@ -100,7 +98,6 @@ Board::Board(int rows, int cols) {
     rowsWithFrame = rows + 2;
     colsWithFrame = cols + 2;
 
-    // ?
     // najpierw powstaje jednowymiarowa tablica wskaźników
     cells = new Cell**[rowsWithFrame];
     for (int i = 0; i < rowsWithFrame; i++) {
@@ -118,7 +115,6 @@ Board::Board(int rows, int cols) {
 void Board::setCellAlive(int i, int j, bool alive) {
     // uwaga, indeksowanie zaczyna się od jeden i kończy na rows/cols ze względu na ramkę!
     if (i >= 1 && i <= rows && j >= 1 && j <= cols) {
-        // ? o co chodzi z ostrzeżeniem w linijce poniżej?
         cells[i][j]->setAlive(alive);
     } else {
         std::cerr << "Error: Coordinates out of bounds, x = " << i << ", y = " << j << std::endl;
@@ -239,12 +235,9 @@ void Board::toggleCell(int i, int j){
  *  Definiuje co dzieje się w okienku
 */
 
-// ?
+
 /** Konstruktor MainWindow
  *  Dziedziczy po QMainWindow
- *  Parametr to QWidget??
- *  To coś po przecinku to nie wiem
- *  Pola:
 */
 
 MainWindow::MainWindow(QWidget *parent)
@@ -328,12 +321,17 @@ void MainWindow::mousePressEvent(QMouseEvent* event){
     //jak ustalić, na którym kwadraciku jest kursor:
     //pozycję kursora należy podzielić na szerokość kwadracika, a potem dodać 1
     //20 to długość boku kwadratu
-    int ktory_kwadracik_col = (x/cellSide)+1;
-    int ktory_kwadracik_row = (y/cellSide)+1;
-    board->toggleCell(ktory_kwadracik_row, ktory_kwadracik_col);
-//    std::cout<<"x:"<<ktory_kwadracik_x <<" y:"<<ktory_kwadracik_y<<std::endl;
+    int squareNumCol = (x/cellSide)+1;
+    int squareNumRow = (y/cellSide)+1;
+    board->toggleCell(squareNumRow, squareNumCol);
     update();
 }
+
+/** Metoda służy do obsługiwania aplikacji klawiszami spacji, G i S
+*  spacja zamyka aplikację
+*  klawisz G przełącza aplikację na gayMode
+*  klawisz S przełącza aplikację na blackAndWhiteSquares
+*/
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Space) {
@@ -351,13 +349,3 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         cellPainter = new BlackAndWhiteSquares(painter, cellSide, screenWidth);
     }
 }
-
-/** funkcja czyszcząca tablicę, żeby działał guzik "clear"
-*/
-
-
-/** funkcja zapełniająca tablicę losowo zerami i jedynkami, żeby działał guzik "random"
-*/
-
-
-

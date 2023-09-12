@@ -11,7 +11,7 @@ using namespace std;
  * \par Game of Life
  * Program prawdziwszy niż życie
  * \author Justyna Sałacińska
- * \date 2021.06.09
+ * \date 2023.09.12
  * \version 1.0
  * \par Kontakt:
  * \a justyna.salacinska.stud@pw.edu.pl
@@ -65,12 +65,9 @@ public:
     Board(int rows, int cols);
     void setCellAlive(int i, int j, bool alive);
     bool isCellAlive(int i, int j);
-    // być może powinno też jako parametr przyjmować rozmiar tablicy?
     void putRandomValues();
     void step();
     void toggleCell(int i, int j);
-
-//    void display();
 };
 
 class CellPainter {
@@ -108,21 +105,13 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void kasuj(int**& tab, int N);
-    void kasuj1d(int*& tab);
-    Board* board;
-
-    //rysowanie prostokątów
-    virtual void paintEvent(QPaintEvent* event);
-    void mousePressEvent(QMouseEvent* event);
-    void toggleCell(int ktory_kwadracik_x, int ktory_kwadracik_y);
-    void gayMode(int i, int j, QPainter &painter);
 
 public slots:
     void windowStep();
 
 private:
     Ui::MainWindow *ui;
+    Board* board;
     int cellSide;
     int rows;
     int cols;
@@ -132,6 +121,9 @@ private:
     QPainter painter; //chyba deklaracja razem z inicjacją?? wyjątkowo
     CellPainter* cellPainter;
     void keyPressEvent(QKeyEvent *event);
+    virtual void paintEvent(QPaintEvent* event);
+    void mousePressEvent(QMouseEvent* event);
+    void toggleCell(int squareNumCol, int squareNumRow);
 };
 
 
