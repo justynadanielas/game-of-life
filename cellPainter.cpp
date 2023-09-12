@@ -1,12 +1,12 @@
 /** Klasa CellPainter
  *  Służy do zapewnienia polimorfizmu
  *  Daje możliwość przełączania się pomiędzy trybami "gay" i "straight" aplikacji
+ *  Pola: painter, cellSide, screenWidth
 */
 
 
 /** Konstruktor CellPainter
  *  Parametry to wskaźnik do paintera, długość boku komórki, szerokość ekranu
- *  Pola: painter, cellSide, screenWidth
 */
 
 CellPainter::CellPainter(QPainter &painter, int cellSide, int screenWidth) {
@@ -57,7 +57,7 @@ GaySquares::GaySquares(QPainter &painter, int cellSide, int screenWidth) : CellP
 /** Metoda GaySquares::drawAliveCell
  *  Jest trochę bardziej złożona, więc zasługuje na opis
  *  Nadpisuje metody drawAliveCell i drawDeadCell
- *  Dzieli numer kolumn na 6 części, aby każdej przypisać jeden z kolorów tęczy
+ *  Dzieli liczbę kolumn na 6 części, aby każdej przypisać jeden z kolorów tęczy
 */
 void GaySquares::drawAliveCell(int i, int j){
     int numOfCols = screenWidth/cellSide;

@@ -15,7 +15,7 @@
 */
 
 /** Konstruktor Point
- *  Ma parametry współrzędne x i y
+ *  Parametry: współrzędne x i y (oba typu int)
 */
 Point::Point(int x, int y) : x(x), y(y) {}
 
@@ -52,7 +52,6 @@ void Point::setY(int y) {
  *  Parametry: indeks wiersza, indeks kolumny, informacja o stanie komórki (żywa czy martwa)
  *  indeksowi wiersza odpowiada współrzędna y obiektu typu Point
  *  indeksowi kolumny odpowiada współrzędna x obiektu typu Point
- *  Pola: liczba sąsiadów, przechowujące liczbę żywych sąsiadów danej komórki
 */
 Cell::Cell(int row_num, int col_num, bool alive) : Point(col_num, row_num), alive(alive) {
     numOfNeighbors = 0;
@@ -88,7 +87,6 @@ void Cell::setNumOfNeighbors(int numOfNeighbors) {
 
 /** Konstruktor Board
  *  Parametry: liczba wierszy, liczba kolumn
- *  Pola: wiersze z ramką; kolumny z ramką;
  *  (ramka umożliwia obliczenie liczby sąsiadów dla komórek na obrzeżach planszy)
  *  "cells" to dwuwymiarowa dynamiczna tablica komórek
 */
@@ -140,6 +138,7 @@ void Board::putRandomValues() {
 
 /** Metoda oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Neumanna
  *  sąsiedztwo Neumanna to cztery komórki, które graniczą z centralną komórką krawędziami
+ *  Metoda zwraca liczbę żywych komórek sąsiadujących z komórką o podanym indeksie
 */
 int Board::neumannNeighborCounter(int i, int j) {
     int counter = 0;
@@ -160,6 +159,8 @@ int Board::neumannNeighborCounter(int i, int j) {
 
 /** Metoda oblicza, ile dana komórka ma żywych sąsiadów wśród komórek,
  *  które graniczą z nią wierzchołkami
+ *  Metoda zwraca liczbę żywych komórek sąsiadujących z komórką o podanym indeksie
+
 */
 
 int Board::diagonalNeighborCounter(int i, int j) {
@@ -181,6 +182,7 @@ int Board::diagonalNeighborCounter(int i, int j) {
 
 /** Metoda oblicza, ile dana komórka ma żywych sąsiadów w sąsiedztwie Moore'a
  *  sąsiedztwo Moore'a to osiem komórek, które graniczą z centralną komórką krawędziami i wierzchołkami
+ *  Metoda zwraca liczbę żywych komórek sąsiadujących z komórką o podanym indeksie
 */
 
 int Board::mooreNeighborCounter(int i, int j) {
@@ -238,6 +240,11 @@ void Board::toggleCell(int i, int j){
 
 /** Konstruktor MainWindow
  *  Dziedziczy po QMainWindow
+ *  Metoda najpierw ustawia wielkość planszy na podstawie wielkości ekranu;
+ *  zapełnia planszę losowymi wartościami;
+ *  ustawia paintera na BlackAndWhiteSquares
+ *  ustawia timer na 100 ms
+ *  timer wywołuje metodę windowStep
 */
 
 MainWindow::MainWindow(QWidget *parent)

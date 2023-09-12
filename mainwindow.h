@@ -12,7 +12,7 @@ using namespace std;
  * Program prawdziwszy niż życie
  * \author Justyna Sałacińska
  * \date 2023.09.12
- * \version 1.0
+ * \version 2.0
  * \par Kontakt:
  * \a justyna.salacinska.stud@pw.edu.pl
 */
@@ -118,7 +118,7 @@ private:
     int screenWidth;
     int screenHeight;
     QTimer* timer;
-    QPainter painter; //chyba deklaracja razem z inicjacją?? wyjątkowo
+    QPainter painter;
     CellPainter* cellPainter;
     void keyPressEvent(QKeyEvent *event);
     virtual void paintEvent(QPaintEvent* event);
